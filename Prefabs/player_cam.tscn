@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://cwoedy5df1on3"]
+
+[ext_resource type="Script" path="res://Scripts/player_cam.gd" id="1_2cly1"]
+[ext_resource type="Script" path="res://Scripts/player_controller.gd" id="2_uwc8u"]
+[ext_resource type="Texture2D" uid="uid://bdg7ixdc88ma7" path="res://icon.svg" id="3_3lxgs"]
+[ext_resource type="Texture2D" uid="uid://chvpo00bg5vg3" path="res://Sprites/potion selector.png" id="4_sjnbq"]
+[ext_resource type="Texture2D" uid="uid://i8kyf24m2ken" path="res://Sprites/action_slot.png" id="7_do5pt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sr58d"]
+radius = 63.1114
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_17h2c"]
+size = Vector2(1163, 128)
+
+[node name="player_cam" type="Camera2D"]
+position = Vector2(0, 330)
+ignore_rotation = false
+script = ExtResource("1_2cly1")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_mask = 5
+script = ExtResource("2_uwc8u")
+
+[node name="player" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(177.484, -84.1457)
+texture = ExtResource("3_3lxgs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(177.155, -83.7921)
+shape = SubResource("CircleShape2D_sr58d")
+
+[node name="potion_spawn" type="Node2D" parent="CharacterBody2D"]
+position = Vector2(69.2964, -84.8528)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+z_as_relative = false
+offset_left = -581.0
+offset_top = 185.0
+offset_right = 581.0
+offset_bottom = 332.0
+color = Color(0.803922, 0.803922, 0.803922, 1)
+
+[node name="potion_selector" type="Sprite2D" parent="ColorRect"]
+position = Vector2(1038, 66)
+scale = Vector2(2, 2)
+texture = ExtResource("4_sjnbq")
+
+[node name="potion_choices" type="HBoxContainer" parent="ColorRect"]
+layout_mode = 0
+offset_left = 277.0
+offset_top = 11.0
+offset_right = 853.0
+offset_bottom = 123.0
+
+[node name="RigidBody2D" type="RigidBody2D" parent="ColorRect"]
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/RigidBody2D"]
+position = Vector2(581.5, 65)
+shape = SubResource("RectangleShape2D_17h2c")
+
+[node name="mix_stand" type="Sprite2D" parent="ColorRect"]
+position = Vector2(1039, 133)
+texture = ExtResource("7_do5pt")
+
+[node name="mix_container" type="HBoxContainer" parent="ColorRect/mix_stand"]
+offset_left = -57.0
+offset_top = -121.0
+offset_right = 55.0
+offset_bottom = -9.0

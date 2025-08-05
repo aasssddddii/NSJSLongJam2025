@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://id0k7df2p4ef"]
+
+[ext_resource type="Texture2D" uid="uid://it85s7kyh2ru" path="res://Sprites/store.png" id="1_ke1sw"]
+[ext_resource type="Script" path="res://Scripts/house.gd" id="2_j0e8n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ce1to"]
+size = Vector2(39, 85)
+
+[node name="house_template" type="Sprite2D"]
+texture = ExtResource("1_ke1sw")
+script = ExtResource("2_j0e8n")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-64, 48)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_ce1to")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://7y4gdhsi7d20"]
+
+[ext_resource type="Texture2D" uid="uid://dvbvtlil3pxkt" path="res://Sprites/potion.png" id="1_3ty50"]
+[ext_resource type="Script" path="res://Scripts/potion_selection_template.gd" id="2_b5j5j"]
+[ext_resource type="Texture2D" uid="uid://bk24gava7iftc" path="res://Sprites/infinity.png" id="3_npugs"]
+
+[node name="blank_potion" type="TextureRect"]
+texture = ExtResource("1_3ty50")
+expand_mode = 2
+script = ExtResource("2_b5j5j")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(56, 57)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(86, 95)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_npugs")
