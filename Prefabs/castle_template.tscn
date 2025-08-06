@@ -1,0 +1,108 @@
+[gd_scene load_steps=11 format=3 uid="uid://c0377k37wxswo"]
+
+[ext_resource type="Texture2D" uid="uid://grcmsdv6olfm" path="res://Sprites/castle.png" id="1_p7kiy"]
+[ext_resource type="Script" path="res://Scripts/house.gd" id="2_6of6t"]
+[ext_resource type="PackedScene" uid="uid://c11e0r02ahjeb" path="res://Prefabs/potion_box_prefab.tscn" id="3_4s8os"]
+[ext_resource type="Texture2D" uid="uid://buawn732k8qj2" path="res://Sprites/request bubble.png" id="4_nlxkx"]
+[ext_resource type="Texture2D" uid="uid://duytgmxrv5v4o" path="res://Sprites/house result.png" id="5_1adsd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6jjaj"]
+radius = 13.0
+height = 77.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cstqq"]
+radius = 6.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q5ixt"]
+size = Vector2(17, 18.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b0h5r"]
+size = Vector2(10.375, 10.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_goffv"]
+size = Vector2(25, 32.75)
+
+[node name="castle_template" type="Sprite2D"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_p7kiy")
+script = ExtResource("2_6of6t")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-64, 48)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(65.5, 0)
+shape = SubResource("CapsuleShape2D_6jjaj")
+
+[node name="potion_box" parent="." instance=ExtResource("3_4s8os")]
+position = Vector2(179, -72)
+
+[node name="request_manager" type="Node2D" parent="."]
+position = Vector2(-97, 110)
+
+[node name="request_bubble" type="Sprite2D" parent="request_manager"]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_nlxkx")
+flip_v = true
+
+[node name="request_container" type="HBoxContainer" parent="request_manager"]
+offset_left = -69.5
+offset_top = -16.5
+offset_right = 64.5
+offset_bottom = 23.5
+alignment = 1
+
+[node name="bound_checker" type="Area2D" parent="request_manager"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="request_manager/bound_checker"]
+position = Vector2(-57, 27)
+shape = SubResource("CircleShape2D_cstqq")
+
+[node name="request_move_spot" type="Node2D" parent="."]
+position = Vector2(67.5, -76)
+
+[node name="ui_result" type="Node2D" parent="."]
+visible = false
+
+[node name="background" type="Sprite2D" parent="ui_result"]
+position = Vector2(117, 58)
+rotation = 1.5708
+texture = ExtResource("5_1adsd")
+
+[node name="ui_face" type="Sprite2D" parent="ui_result"]
+position = Vector2(119.5, 58)
+scale = Vector2(0.8, 0.8)
+
+[node name="negative_throw_spots" type="Node2D" parent="."]
+position = Vector2(-31.5, 108.5)
+
+[node name="near side wall" type="Area2D" parent="negative_throw_spots"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="negative_throw_spots/near side wall"]
+position = Vector2(8, -113.5)
+shape = SubResource("RectangleShape2D_q5ixt")
+
+[node name="door side wall" type="Area2D" parent="negative_throw_spots"]
+position = Vector2(119.5, -99.5)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="negative_throw_spots/door side wall"]
+position = Vector2(-81, -34.5)
+shape = SubResource("RectangleShape2D_b0h5r")
+
+[node name="roof side" type="Area2D" parent="negative_throw_spots"]
+position = Vector2(123.5, -151)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="negative_throw_spots/roof side"]
+position = Vector2(-107.5, -17.375)
+shape = SubResource("RectangleShape2D_goffv")
+
+[node name="splatter layer" type="Node2D" parent="."]

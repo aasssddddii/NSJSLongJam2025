@@ -12,7 +12,7 @@ script = ExtResource("2_b5j5j")
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(56, 57)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="infinity" type="Sprite2D" parent="."]
 position = Vector2(86, 95)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_npugs")

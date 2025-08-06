@@ -1,13 +1,16 @@
 extends CharacterBody2D
 
 const throw_speed:Vector2 = Vector2(-200,-200)
+const spin_speed:int = 5
 var potion_type:GameManager.PotionType
 @onready var potion_sprite = $Sprite2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	velocity = throw_speed
+	
 
 func _process(delta):
+	rotation += deg_to_rad(-spin_speed)
 	move_and_slide()
 
 func setup_thrown_potion(input_type:GameManager.PotionType):

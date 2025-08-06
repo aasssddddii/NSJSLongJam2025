@@ -1,16 +1,30 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwoedy5df1on3"]
+[gd_scene load_steps=14 format=3 uid="uid://cwoedy5df1on3"]
 
 [ext_resource type="Script" path="res://Scripts/player_cam.gd" id="1_2cly1"]
 [ext_resource type="Script" path="res://Scripts/player_controller.gd" id="2_uwc8u"]
 [ext_resource type="Texture2D" uid="uid://bdg7ixdc88ma7" path="res://icon.svg" id="3_3lxgs"]
 [ext_resource type="Texture2D" uid="uid://chvpo00bg5vg3" path="res://Sprites/potion selector.png" id="4_sjnbq"]
-[ext_resource type="Texture2D" uid="uid://i8kyf24m2ken" path="res://Sprites/action_slot.png" id="7_do5pt"]
+[ext_resource type="Texture2D" uid="uid://ct3ncw6v61a45" path="res://Sprites/potion selector BG.png.png" id="4_wajkl"]
+[ext_resource type="Texture2D" uid="uid://6pvn0hrabv0b" path="res://Sprites/mixer.png" id="6_bowb8"]
+[ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="7_nyjqb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sr58d"]
 radius = 63.1114
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vs4g8"]
+size = Vector2(346, 50)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_17h2c"]
-size = Vector2(1163, 128)
+size = Vector2(1167, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxhc5"]
+size = Vector2(24.5, 570)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wx66o"]
+size = Vector2(367, 48)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rfpgr"]
+radius = 13.0384
 
 [node name="player_cam" type="Camera2D"]
 position = Vector2(0, 330)
@@ -18,7 +32,9 @@ ignore_rotation = false
 script = ExtResource("1_2cly1")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(1, -1)
 collision_mask = 5
+floor_max_angle = 0.0
 script = ExtResource("2_uwc8u")
 
 [node name="player" type="Sprite2D" parent="CharacterBody2D"]
@@ -32,14 +48,18 @@ shape = SubResource("CircleShape2D_sr58d")
 [node name="potion_spawn" type="Node2D" parent="CharacterBody2D"]
 position = Vector2(69.2964, -84.8528)
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="Sprite2D" parent="."]
 z_index = -1
 z_as_relative = false
-offset_left = -581.0
-offset_top = 185.0
-offset_right = 581.0
-offset_bottom = 332.0
-color = Color(0.803922, 0.803922, 0.803922, 1)
+position = Vector2(-2, 257)
+texture = ExtResource("4_wajkl")
+
+[node name="OOB" type="Area2D" parent="ColorRect"]
+position = Vector2(-586, -68)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/OOB"]
+position = Vector2(-163, 25)
+shape = SubResource("RectangleShape2D_vs4g8")
 
 [node name="potion_selector" type="Sprite2D" parent="ColorRect"]
 position = Vector2(1038, 66)
@@ -47,25 +67,63 @@ scale = Vector2(2, 2)
 texture = ExtResource("4_sjnbq")
 
 [node name="potion_choices" type="HBoxContainer" parent="ColorRect"]
-layout_mode = 0
-offset_left = 277.0
-offset_top = 11.0
-offset_right = 853.0
-offset_bottom = 123.0
+offset_left = -281.0
+offset_top = -54.0
+offset_right = 295.0
+offset_bottom = 58.0
 
 [node name="RigidBody2D" type="RigidBody2D" parent="ColorRect"]
+position = Vector2(-576, -67)
 freeze = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/RigidBody2D"]
 position = Vector2(581.5, 65)
 shape = SubResource("RectangleShape2D_17h2c")
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ColorRect/RigidBody2D"]
+position = Vector2(1158.25, -228)
+shape = SubResource("RectangleShape2D_wxhc5")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="ColorRect/RigidBody2D"]
+position = Vector2(986.5, -492)
+shape = SubResource("RectangleShape2D_wx66o")
+
 [node name="mix_stand" type="Sprite2D" parent="ColorRect"]
-position = Vector2(1039, 133)
-texture = ExtResource("7_do5pt")
+position = Vector2(416, 0)
+texture = ExtResource("6_bowb8")
 
 [node name="mix_container" type="HBoxContainer" parent="ColorRect/mix_stand"]
-offset_left = -57.0
-offset_top = -121.0
-offset_right = 55.0
-offset_bottom = -9.0
+offset_left = -55.0
+offset_top = -55.0
+offset_right = 57.0
+offset_bottom = 57.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 232.0
+offset_top = -319.0
+offset_right = 546.0
+offset_bottom = -289.0
+
+[node name="score label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "deliveries made:"
+
+[node name="ui_score" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="level_end_check" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="level_end_check"]
+position = Vector2(-100, -58)
+shape = SubResource("CircleShape2D_rfpgr")
+
+[connection signal="area_entered" from="level_end_check" to="." method="_on_level_end_check_area_entered"]

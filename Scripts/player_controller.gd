@@ -11,7 +11,7 @@ var game_manager = GameManager
 #	PURPLE
 #}
 
-@onready var potion_prefab = preload("res://Prefabs/potion.tscn")
+const infinite_types:Array[GameManager.PotionType] = [GameManager.PotionType.BLUE,GameManager.PotionType.RED,GameManager.PotionType.YELLOW]
 @onready var potion_spawn_node  = $potion_spawn
 
 @onready var potion_selector = $"../ColorRect/potion_selector"
@@ -23,6 +23,7 @@ var potion_mixer_type:GameManager.PotionType
 
 @onready var potion_choices_parent = $"../ColorRect/potion_choices"
 @onready var potion_mix_parent = $"../ColorRect/mix_stand/mix_container"
+@onready var ui_score = $"../HBoxContainer/ui_score"
 
 func _ready():
 	setup_player_ui()
@@ -36,14 +37,21 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 	move_and_slide()
+	ui_score.text = var_to_str(game_manager.deliveries_made)
 	
 func _input(event):
 	if event.is_action_pressed("throw_item"):
-		var next_potion = potion_prefab.instantiate()
-		#print("setting up potion type: ", selected_potion_type)
-		$"../..".add_child(next_potion)
-		next_potion.setup_thrown_potion(selected_potion_type)
-		next_potion.global_position = potion_spawn_node.global_position
+		if selected_potion_type != GameManager.PotionType.NONE:
+			var next_potion = game_manager.potion_prefab.instantiate()
+			#print("setting up potion type: ", selected_potion_type)
+			$"../..".add_child(next_potion)
+			next_potion.setup_thrown_potion(selected_potion_type)
+			next_potion.global_position = potion_spawn_node.global_position
+			if infinite_types.find(selected_potion_type) == -1 && selected_potion_index != -1:
+				potion_inventory.remove_at(potion_inventory.find(selected_potion_type))
+				refresh_player_ui()
+			elif selected_potion_index == -1:
+				empty_mixer()
 	if event.is_action_pressed("potion_left"):
 		#potion menu left
 		change_selector("left")
@@ -52,24 +60,44 @@ func _input(event):
 		change_selector("right")
 	if event.is_action_pressed("potion_mix"):
 		#send potion to mix station
-		send_to_mixer(selected_potion_type)
+		if selected_potion_index != -1:
+			send_to_mixer(selected_potion_type)
+			if infinite_types.find(selected_potion_type) == -1:
+				if selected_potion_index != -1:
+					potion_inventory.remove_at(selected_potion_index)
+				refresh_player_ui()
 	if event.is_action_pressed("potion_bank"):
 		#bank potion in inventory
-		pass
+		if selected_potion_index == -1 && selected_potion_type != GameManager.PotionType.NONE && infinite_types.find(selected_potion_type) == -1 && potion_inventory.size() <5:
+			getset_potion_inventory("add",selected_potion_type)
+			empty_mixer()
 		
 func setup_player_ui():
 	for potion in potion_inventory:
 		var next_selector_potion = game_manager.potion_selector_prefab.instantiate()
-		next_selector_potion.setup_potion(potion)
 		potion_choices_parent.add_child(next_selector_potion)
+		next_selector_potion.setup_potion(potion)
 	set_potion_selector()
+	
+func clear_potion_ui():
+	for potion in potion_choices_parent.get_children():
+		potion.queue_free()
+		
+func refresh_player_ui():
+	clear_potion_ui()
+	setup_player_ui()
 	
 func set_potion_selector():
 	if selected_potion_index != -1:
 		potion_selector.global_position = potion_choices_parent.get_child(selected_potion_index).get_location()
 		selected_potion_type = potion_choices_parent.get_child(selected_potion_index).potion_type
 	else:
+		potion_selector.global_position = potion_mix_parent.get_child(0).get_location()
 		selected_potion_type = potion_mixer_type
+		
+func reset_potion_selector():
+#	selected_potion_index = potion_choices_parent.get_children().size()-1
+	set_potion_selector()
 func change_selector(choice:String):
 	match choice:
 		"left":
@@ -164,3 +192,24 @@ func send_to_mixer(type:GameManager.PotionType):
 					_:
 						potion_mixer_type = GameManager.PotionType.BLACK
 		current_mix_potion.setup_potion(potion_mixer_type)
+		goto_mixer()
+
+func empty_mixer():
+	if potion_mix_parent.get_children().size() > 0:
+		potion_mix_parent.get_child(0).queue_free()
+		potion_mixer_type = game_manager.PotionType.NONE
+		selected_potion_type = game_manager.PotionType.NONE
+		selected_potion_index = 0
+		reset_potion_selector()
+
+func goto_mixer():
+	selected_potion_index = -1
+	set_potion_selector()
+func getset_potion_inventory(choice:String,input):
+	match choice:
+		"add":
+			potion_inventory.append(input)
+			refresh_player_ui()
+	
+	
+	
