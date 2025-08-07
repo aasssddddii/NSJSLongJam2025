@@ -4,7 +4,10 @@ signal customer_result(happy:bool, reward:int)
 
 var house_data:Dictionary
 @onready var door_submission_area = $Area2D
+@onready var potion_box = $potion_box
 @onready var potion_submission_area = $potion_box.potion_submission_area
+
+@export var house_closed_texture:Texture
 
 var game_manager = GameManager
 var potion_requirements:Array[GameManager.PotionType]
@@ -77,17 +80,18 @@ func update_requirements():
 	
 func requirement_finished(potion_delivered:bool):
 	setup_results(potion_delivered)
+	close_house()
 	customer_result.emit(potion_delivered,reward_money)
-	#if potion_delivered:
-		#Positive stuff
 	request_manager.visible = false
-		#game_manager.company_profits += reward_money
-		#game_manager.happy_customers += 1
-	#else:
+	if !potion_delivered:
 		#negative stuff
-		#game_manager.happy_customers -= 1
-		#pass
+		game_manager.unhappy_customers += 1
 
+func close_house():
+	texture = house_closed_texture
+	potion_box.texture = load("res://Sprites/potion box closed.png")
+	
+	
 func setup_results(positive:bool):
 	var result_texture:String
 	
@@ -103,6 +107,7 @@ func setup_results(positive:bool):
 	
 func show_splatter(splatter_position,potion_type:GameManager.PotionType):
 	#print("generating splatter at: ", splatter_position)
+	
 	var next_splatter = game_manager.splatter_prefab.instantiate()
 	next_splatter.texture = load(game_manager.splatter_textures.pick_random())
 	next_splatter.setup_splatter(potion_type)
@@ -115,6 +120,7 @@ func show_splatter(splatter_position,potion_type:GameManager.PotionType):
 		
 
 func setup_splatter(body):
+	game_manager.level_splatters += 1
 	potion_attempts -=1
 	show_splatter(body.global_position,body.potion_type)
 	body.queue_free()
@@ -134,3 +140,9 @@ func calculate_reward():
 				reward_money += mix_reward
 			GameManager.PotionType.BLACK:
 				reward_money += black_reward
+
+
+func _on_oob_area_entered(area):
+	if area.name == "OOB" && request_manager.visible:
+		requirement_finished(false)
+		

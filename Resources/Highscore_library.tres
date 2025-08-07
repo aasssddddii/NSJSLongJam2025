@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="Highscore_Library" load_steps=2 format=3 uid="uid://jlj41l0yhnl8"]
+
+[ext_resource type="Script" path="res://Resources/level_highscores.gd" id="1_b0c60"]
+
+[resource]
+script = ExtResource("1_b0c60")

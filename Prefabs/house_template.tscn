@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://id0k7df2p4ef"]
+[gd_scene load_steps=14 format=3 uid="uid://id0k7df2p4ef"]
 
 [ext_resource type="Texture2D" uid="uid://b5tr7kal7dd0w" path="res://Sprites/house.png" id="1_4234v"]
+[ext_resource type="Texture2D" uid="uid://xdqkujba2u8u" path="res://Sprites/house_open.png" id="1_frxi5"]
 [ext_resource type="Script" path="res://Scripts/house.gd" id="2_j0e8n"]
 [ext_resource type="PackedScene" uid="uid://c11e0r02ahjeb" path="res://Prefabs/potion_box_prefab.tscn" id="3_uqadj"]
 [ext_resource type="Texture2D" uid="uid://buawn732k8qj2" path="res://Sprites/request bubble.png" id="4_dk2so"]
@@ -17,15 +18,21 @@ radius = 6.5
 size = Vector2(12.5, 53.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1g6cy"]
-size = Vector2(7.5, 21)
+size = Vector2(7.5, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gvpvj"]
 size = Vector2(25, 25.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uabn0"]
+size = Vector2(8.5, 147.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pa3ns"]
+
 [node name="house_template" type="Sprite2D" node_paths=PackedStringArray("negative_splatter_areas")]
 scale = Vector2(2, 2)
-texture = ExtResource("1_4234v")
+texture = ExtResource("1_frxi5")
 script = ExtResource("2_j0e8n")
+house_closed_texture = ExtResource("1_4234v")
 negative_splatter_areas = [NodePath("negative_throw_spots/near side wall"), NodePath("negative_throw_spots/door side wall"), NodePath("negative_throw_spots/roof side")]
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -93,6 +100,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="negative_throw_spots/door side wall"]
+position = Vector2(0, -11)
 shape = SubResource("RectangleShape2D_1g6cy")
 
 [node name="roof side" type="Area2D" parent="negative_throw_spots"]
@@ -103,4 +111,21 @@ collision_mask = 2
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="negative_throw_spots/roof side"]
 shape = SubResource("RectangleShape2D_gvpvj")
 
+[node name="roof side2" type="Area2D" parent="negative_throw_spots"]
+position = Vector2(64, -204.5)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="negative_throw_spots/roof side2"]
+position = Vector2(-5.5, 64)
+shape = SubResource("RectangleShape2D_uabn0")
+
 [node name="splatter layer" type="Node2D" parent="."]
+
+[node name="OOB" type="Area2D" parent="."]
+position = Vector2(70.5, -127.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OOB"]
+shape = SubResource("RectangleShape2D_pa3ns")
+
+[connection signal="area_entered" from="OOB" to="." method="_on_oob_area_entered"]

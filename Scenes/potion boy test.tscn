@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://pv416rf47brd"]
+[gd_scene load_steps=5 format=3 uid="uid://pv416rf47brd"]
 
 [ext_resource type="Script" path="res://Scripts/scene scripts/potion boy test.gd" id="1_n12yy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m7equ"]
-size = Vector2(7666, 27)
+size = Vector2(100000, 27)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wup2j"]
 size = Vector2(36.7695, 2805.8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcond"]
+size = Vector2(15912, 77)
 
 [node name="potion_boy" type="Node2D"]
 script = ExtResource("1_n12yy")
@@ -23,7 +26,7 @@ collision_mask = 4
 freeze = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="house side"]
-position = Vector2(3266, 253.5)
+position = Vector2(48728, 253.5)
 shape = SubResource("RectangleShape2D_m7equ")
 
 [node name="house layer" type="Node2D" parent="."]
@@ -35,5 +38,13 @@ position = Vector2(0, 330)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="stage_end"]
 rotation = -0.785398
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_wup2j")
+
+[node name="OOB Detector" type="Area2D" parent="."]
+position = Vector2(-1237, -385)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OOB Detector"]
+position = Vector2(7946, -19.5)
+shape = SubResource("RectangleShape2D_xcond")

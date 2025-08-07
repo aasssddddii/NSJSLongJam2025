@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdggt6u01c7cw"]
+[gd_scene load_steps=13 format=3 uid="uid://cdggt6u01c7cw"]
 
+[ext_resource type="Texture2D" uid="uid://c24ib836x0orf" path="res://Sprites/witch house open.png" id="1_bgomy"]
 [ext_resource type="Texture2D" uid="uid://c356rbh5fguma" path="res://Sprites/witch house.png" id="1_plylx"]
 [ext_resource type="Script" path="res://Scripts/house.gd" id="2_plmys"]
 [ext_resource type="PackedScene" uid="uid://c11e0r02ahjeb" path="res://Prefabs/potion_box_prefab.tscn" id="3_xd446"]
@@ -22,10 +23,13 @@ size = Vector2(10.75, 15.25)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gvpvj"]
 size = Vector2(6, 25.375)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsg7i"]
+
 [node name="house_template" type="Sprite2D" node_paths=PackedStringArray("negative_splatter_areas")]
 scale = Vector2(2, 2)
-texture = ExtResource("1_plylx")
+texture = ExtResource("1_bgomy")
 script = ExtResource("2_plmys")
+house_closed_texture = ExtResource("1_plylx")
 negative_splatter_areas = [NodePath("negative_throw_spots/near side wall"), NodePath("negative_throw_spots/door side wall"), NodePath("negative_throw_spots/roof side")]
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -122,3 +126,11 @@ position = Vector2(0, 9.6875)
 shape = SubResource("RectangleShape2D_gvpvj")
 
 [node name="splatter layer" type="Node2D" parent="."]
+
+[node name="OOB" type="Area2D" parent="."]
+position = Vector2(70.5, -127.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OOB"]
+shape = SubResource("RectangleShape2D_vsg7i")
+
+[connection signal="area_entered" from="OOB" to="." method="_on_oob_area_entered"]

@@ -1,0 +1,83 @@
+[gd_scene load_steps=4 format=3 uid="uid://bj42sqboi3o5t"]
+
+[ext_resource type="Script" path="res://Scripts/scene scripts/overtime screen.gd" id="1_b5bne"]
+[ext_resource type="Texture2D" uid="uid://cg6lcsqcax324" path="res://Sprites/large window background.png" id="2_5sek2"]
+[ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="3_ngm0l"]
+
+[node name="overtime screen" type="Node2D"]
+script = ExtResource("1_b5bne")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -3.0
+offset_top = -2.0
+offset_right = 1158.0
+offset_bottom = 656.0
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(569, 324)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_5sek2")
+
+[node name="title" type="Label" parent="."]
+offset_left = 281.0
+offset_top = 77.0
+offset_right = 848.0
+offset_bottom = 141.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_ngm0l")
+theme_override_font_sizes/font_size = 50
+text = "Company Alert"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 290.0
+offset_top = 172.0
+offset_right = 857.0
+offset_bottom = 581.0
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+
+[node name="Container" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 35
+
+[node name="title2" type="Label" parent="ScrollContainer/MarginContainer/Container"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_ngm0l")
+theme_override_font_sizes/font_size = 28
+text = "Apprentice,
+
+I regret to inform you that Potion Slangers™ is once again in trouble. Our so-called friendly rival, HexEx™ has launched a late-night service that is taking over our market. We need to win over our customers back with perfect deliveies, if you are up for a little overtime I could use your help again."
+autowrap_mode = 3
+
+[node name="title4" type="Label" parent="ScrollContainer/MarginContainer/Container"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_ngm0l")
+theme_override_font_sizes/font_size = 28
+text = "
+With Respect,
+The CEO"
+autowrap_mode = 3
+
+[node name="done" type="Button" parent="ScrollContainer/MarginContainer/Container"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_ngm0l")
+theme_override_font_sizes/font_size = 40
+text = "next"
+flat = true
+
+[connection signal="button_down" from="ScrollContainer/MarginContainer/Container/done" to="." method="_on_done_button_down"]

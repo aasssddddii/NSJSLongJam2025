@@ -1,0 +1,130 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbqgkkyqv7any"]
+
+[ext_resource type="Script" path="res://Scripts/scene scripts/credit_screen.gd" id="1_jc84s"]
+[ext_resource type="Texture2D" uid="uid://cg6lcsqcax324" path="res://Sprites/large window background.png" id="2_nhpiw"]
+[ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="2_t64xr"]
+[ext_resource type="Texture2D" uid="uid://d2xm7omtokh2h" path="res://Sprites/NSJS.png" id="4_rq1tp"]
+[ext_resource type="Texture2D" uid="uid://hc2n7v4k8f48" path="res://Sprites/potionrewardimage.png" id="5_mk4jn"]
+
+[node name="Credits" type="Node2D"]
+script = ExtResource("1_jc84s")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -3.0
+offset_top = -2.0
+offset_right = 1158.0
+offset_bottom = 656.0
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(345, 324)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_nhpiw")
+
+[node name="done" type="Button" parent="."]
+offset_left = 984.0
+offset_top = 569.0
+offset_right = 1129.0
+offset_bottom = 618.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_t64xr")
+theme_override_font_sizes/font_size = 40
+text = "next"
+flat = true
+
+[node name="title" type="Label" parent="."]
+offset_left = 90.0
+offset_top = 77.0
+offset_right = 587.0
+offset_bottom = 141.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_t64xr")
+theme_override_font_sizes/font_size = 60
+text = "Credits"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 64.0
+offset_top = 146.0
+offset_right = 631.0
+offset_bottom = 583.0
+
+[node name="Container" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="ScrollContainer/Container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14902, 0.545098, 0.823529, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_t64xr")
+theme_override_font_sizes/font_size = 35
+text = "This game was created for the NSJS 2025"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="title3" type="Label" parent="ScrollContainer/Container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0784314, 0.380392, 0.454902, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_t64xr")
+theme_override_font_sizes/font_size = 35
+text = "Long Jam #2"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/Container"]
+layout_mode = 2
+texture = ExtResource("4_rq1tp")
+stretch_mode = 5
+
+[node name="title2" type="Label" parent="ScrollContainer/Container"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_t64xr")
+theme_override_font_sizes/font_size = 35
+text = "04b_30   By: 04"
+horizontal_alignment = 1
+
+[node name="level5_win_message" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(921, 224)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_nhpiw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="level5_win_message"]
+offset_left = -231.0
+offset_top = -156.0
+offset_right = 237.0
+offset_bottom = 135.0
+
+[node name="title" type="Label" parent="level5_win_message/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_t64xr")
+theme_override_font_sizes/font_size = 50
+text = "Thank you"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="level5_win_message/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_mk4jn")
+stretch_mode = 3
+
+[node name="title2" type="Label" parent="level5_win_message/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_t64xr")
+theme_override_font_sizes/font_size = 50
+text = "For Playing"
+horizontal_alignment = 1
+
+[connection signal="button_down" from="done" to="." method="_on_done_button_down"]

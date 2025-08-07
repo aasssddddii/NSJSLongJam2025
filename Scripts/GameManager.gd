@@ -1,5 +1,6 @@
 extends Node
 
+var game_manager = GameManager
 
 enum PotionType {
 	NONE,
@@ -14,23 +15,40 @@ enum PotionType {
 @onready var potion_prefab = preload("res://Prefabs/potion.tscn")
 @onready var splatter_prefab = preload("res://Prefabs/splatter.tscn")
 @onready var start_screen = preload("res://Scenes/start screen.tscn")
+@onready var credits_screen = preload("res://Scenes/credit_screen.tscn")
+@onready var game_over_screen = preload("res://Scenes/game over screen.tscn")
+@onready var overtime_start_scene = preload("res://Scenes/overtime screen.tscn")
+@onready var overtime_complete_scene = preload("res://Scenes/overtime complete screen.tscn")
 @onready var level_select_screen = preload("res://Scenes/level_select.tscn")
-
+@onready var intro_scene = preload("res://Scenes/intro screen.tscn")
+@onready var prep_lib = preload("res://Resources/Prep_Library.tres")
 @onready var potion_boy_scene = preload("res://Scenes/potion boy test.tscn")
 var requestable_potions:Array[PotionType] = [PotionType.BLUE,PotionType.RED,PotionType.YELLOW,PotionType.GREEN,PotionType.ORANGE,PotionType.PURPLE,PotionType.BLACK]
 var splatter_textures:Array[String] = ["res://Sprites/splatter1.png","res://Sprites/splatter2.png","res://Sprites/splatter3.png"]
 var rng = RandomNumberGenerator.new()
 
+var shown_end_credits:bool
+var show_end_splash:bool
+
+var level_5_complete:bool
+var shown_intro_scene:bool
+var shown_overtime_intro_scene:bool
+
+#MUST RESETERS
 var company_profits:int
 var deliveries_made:int
 var level_splatters:int
+var unhappy_customers:int
+var level_score:int
 
-#var unlocked_overtime:bool
+@onready var highscore_lib:Resource = preload("res://Resources/Highscore_library.tres")
+
+#var overtime_unlocked:bool
 
 
 var potion_selector_prefab = preload("res://Prefabs/potion_template.tscn")
 
-var game_level:int# = 1
+var game_level:int #= 5
 
 func get_new_potion_request(level:int):
 	var rng_potion_index_low:int
@@ -42,7 +60,10 @@ func get_new_potion_request(level:int):
 		1:
 			rng_potion_index_high = 2
 			required_amount_high = 1
-		2,3:
+		2:
+			rng_potion_index_high = 5
+			required_amount_high = 1
+		3:
 			rng_potion_index_high = 5
 			required_amount_high = 2
 		4,5:
@@ -56,6 +77,73 @@ func get_new_potion_request(level:int):
 
 func change_scene(from_scene,to_scene):
 	var next_scene = to_scene.instantiate()
+	if to_scene == level_select_screen && !shown_intro_scene:
+		next_scene = intro_scene.instantiate()
+		shown_intro_scene = true
+	if to_scene == level_select_screen && !shown_overtime_intro_scene && shown_intro_scene && level_5_complete:
+		next_scene = overtime_start_scene.instantiate()
+		shown_overtime_intro_scene = true
 	add_child(next_scene)
+	if to_scene == credits_screen && show_end_splash && !shown_end_credits:
+		next_scene.show_win_splash()
 	from_scene.queue_free()
+	
+func finish_level_scene(level_node):
+	#set highscore
+	print("finishins for game level: ", game_level)
+	var level_highscore_ref = highscore_lib.get_level_highscore(game_level)
+	if level_highscore_ref["deliveries_made"] < deliveries_made:
+		level_highscore_ref["score"] = level_score
+		level_highscore_ref["deliveries_made"] = deliveries_made
+		level_highscore_ref["houses_hit"] = level_splatters
+		level_highscore_ref["angry_clients"] = unhappy_customers
+		level_highscore_ref["profit"] = company_profits
+		
+	var requirment_meet:bool
+	var level_ref_data = prep_lib.get_level_prep(game_level)
+	if deliveries_made >= level_ref_data["required"]:
+		requirment_meet = true
+#	match game_level:
+#		1:
+#			if deliveries_made > 0:
+#				requirment_meet = true
+#		2,3:
+#			if deliveries_made > 2:
+#				requirment_meet = true
+#		4,5,6,7:
+#			if deliveries_made > :
+#				requirment_meet = true
+			
+	if requirment_meet:
+		level_highscore_ref["completed"] = true
+		
+		
+	if requirment_meet && game_level == 5:
+		if !shown_end_credits:
+			print("Showing Game Over Win screen")
+			level_5_complete = true
+			change_scene(level_node,game_over_screen)
+			level_reset()
+		else:
+			#change scene
+			change_scene(level_node,level_select_screen)
+			#reset restters
+			level_reset()
+	elif requirment_meet && game_level == 7:
+			print("Showing OVERTIME Game Over Win screen")
+			change_scene(level_node,overtime_complete_scene)
+			level_reset()
+	else:
+		#change scene
+		change_scene(level_node,level_select_screen)
+		#reset restters
+		level_reset()
+
+	
+func level_reset():
+	company_profits = 0
+	deliveries_made = 0
+	level_splatters = 0
+	unhappy_customers = 0
+	level_score = 0
 	

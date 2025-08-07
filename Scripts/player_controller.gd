@@ -2,6 +2,7 @@ extends CharacterBody2D
 const SPEED = 300.0
 
 var game_manager = GameManager
+var player_in_control:bool = true
 #enum PotionType {
 #	BLUE,
 #	RED,
@@ -20,57 +21,75 @@ var mix_station_index:int = -1
 var potion_inventory:Array[GameManager.PotionType] = [GameManager.PotionType.BLUE,GameManager.PotionType.RED,GameManager.PotionType.YELLOW]
 var selected_potion_type:GameManager.PotionType
 var potion_mixer_type:GameManager.PotionType
+var discard_potion_index:int
 
 @onready var potion_choices_parent = $"../ColorRect/potion_choices"
 @onready var potion_mix_parent = $"../ColorRect/mix_stand/mix_container"
-@onready var ui_score = $"../HBoxContainer/ui_score"
+@onready var ui_score = $"../deliveriesContainer/ui_score"
+@onready var ui_day = $"../dayContainer/ui_day"
+
+@onready var player_sprite = $player
+var can_throw:bool = true
+var throw_cooldown
 
 func _ready():
+	var level_data_ref = game_manager.prep_lib.get_level_prep(game_manager.game_level)
+	ui_day.text = level_data_ref["day"]
 	setup_player_ui()
 
 func _physics_process(delta):
-	var direction = Input.get_vector("button_down","button_up","button_left", "button_right")
-	#print("direction vector:", direction)
-	if direction:
-		velocity = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.y = move_toward(velocity.y, 0, SPEED)
-	move_and_slide()
-	ui_score.text = var_to_str(game_manager.deliveries_made)
+	if player_in_control:
+		var direction = Input.get_vector("button_down","button_up","button_left", "button_right")
+		#print("direction vector:", direction)
+		if direction:
+			velocity = direction * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity.y = move_toward(velocity.y, 0, SPEED)
+		move_and_slide()
+		ui_score.text = var_to_str(game_manager.deliveries_made)
 	
 func _input(event):
-	if event.is_action_pressed("throw_item"):
-		if selected_potion_type != GameManager.PotionType.NONE:
-			var next_potion = game_manager.potion_prefab.instantiate()
-			#print("setting up potion type: ", selected_potion_type)
-			$"../..".add_child(next_potion)
-			next_potion.setup_thrown_potion(selected_potion_type)
-			next_potion.global_position = potion_spawn_node.global_position
-			if infinite_types.find(selected_potion_type) == -1 && selected_potion_index != -1:
-				potion_inventory.remove_at(potion_inventory.find(selected_potion_type))
-				refresh_player_ui()
-			elif selected_potion_index == -1:
+	if player_in_control:
+		if event.is_action_pressed("throw_item") && can_throw:
+			if selected_potion_type != GameManager.PotionType.NONE:
+				animate_player_throw()
+				can_throw = false
+				var next_potion = game_manager.potion_prefab.instantiate()
+				#print("setting up potion type: ", selected_potion_type)
+				$"../..".add_child(next_potion)
+				next_potion.setup_thrown_potion(selected_potion_type)
+				next_potion.global_position = potion_spawn_node.global_position
+				if infinite_types.find(selected_potion_type) == -1 && selected_potion_index != -1:
+					potion_inventory.remove_at(potion_inventory.find(selected_potion_type))
+					refresh_player_ui()
+					selected_potion_index = potion_inventory.size()-1
+					set_potion_selector()
+				elif selected_potion_index == -1:
+					empty_mixer()
+					
+		if event.is_action_pressed("potion_left"):
+			#potion menu left
+			change_selector("left")
+		if event.is_action_pressed("potion_right"):
+			#potion menu right
+			change_selector("right")
+		if event.is_action_pressed("potion_mix"):
+			#send potion to mix station
+			if selected_potion_index != -1:
+				discard_potion_index = selected_potion_index
+				send_to_mixer(selected_potion_type)
+				if infinite_types.find(potion_inventory[discard_potion_index]) == -1:
+					if discard_potion_index != -1:
+						potion_inventory.remove_at(discard_potion_index)
+					refresh_player_ui()
+					selected_potion_index = -1
+					set_potion_selector()
+		if event.is_action_pressed("potion_bank"):
+			#bank potion in inventory
+			if selected_potion_index == -1 && selected_potion_type != GameManager.PotionType.NONE && infinite_types.find(selected_potion_type) == -1 && potion_inventory.size() <5:
+				getset_potion_inventory("add",selected_potion_type)
 				empty_mixer()
-	if event.is_action_pressed("potion_left"):
-		#potion menu left
-		change_selector("left")
-	if event.is_action_pressed("potion_right"):
-		#potion menu right
-		change_selector("right")
-	if event.is_action_pressed("potion_mix"):
-		#send potion to mix station
-		if selected_potion_index != -1:
-			send_to_mixer(selected_potion_type)
-			if infinite_types.find(selected_potion_type) == -1:
-				if selected_potion_index != -1:
-					potion_inventory.remove_at(selected_potion_index)
-				refresh_player_ui()
-	if event.is_action_pressed("potion_bank"):
-		#bank potion in inventory
-		if selected_potion_index == -1 && selected_potion_type != GameManager.PotionType.NONE && infinite_types.find(selected_potion_type) == -1 && potion_inventory.size() <5:
-			getset_potion_inventory("add",selected_potion_type)
-			empty_mixer()
 		
 func setup_player_ui():
 	for potion in potion_inventory:
@@ -212,4 +231,9 @@ func getset_potion_inventory(choice:String,input):
 			refresh_player_ui()
 	
 	
-	
+func animate_player_throw():
+	player_sprite.texture = load("res://Sprites/player_throw.png")
+	await get_tree().create_timer(.3).timeout
+	player_sprite.texture = load("res://Sprites/player_bag.png")
+	await get_tree().create_timer(.7).timeout
+	can_throw = true

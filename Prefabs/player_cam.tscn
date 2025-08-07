@@ -1,15 +1,24 @@
-[gd_scene load_steps=14 format=3 uid="uid://cwoedy5df1on3"]
+[gd_scene load_steps=18 format=3 uid="uid://cwoedy5df1on3"]
 
 [ext_resource type="Script" path="res://Scripts/player_cam.gd" id="1_2cly1"]
 [ext_resource type="Script" path="res://Scripts/player_controller.gd" id="2_uwc8u"]
-[ext_resource type="Texture2D" uid="uid://bdg7ixdc88ma7" path="res://icon.svg" id="3_3lxgs"]
+[ext_resource type="Texture2D" uid="uid://dgg474p4v8dmj" path="res://Sprites/player_bag.png" id="3_grvsw"]
 [ext_resource type="Texture2D" uid="uid://chvpo00bg5vg3" path="res://Sprites/potion selector.png" id="4_sjnbq"]
 [ext_resource type="Texture2D" uid="uid://ct3ncw6v61a45" path="res://Sprites/potion selector BG.png.png" id="4_wajkl"]
 [ext_resource type="Texture2D" uid="uid://6pvn0hrabv0b" path="res://Sprites/mixer.png" id="6_bowb8"]
 [ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="7_nyjqb"]
+[ext_resource type="FontFile" uid="uid://bdq2hhymbo0sd" path="res://Fonts/newpotionboy.ttf" id="8_u5pkw"]
+[ext_resource type="Texture2D" uid="uid://cg6lcsqcax324" path="res://Sprites/large window background.png" id="8_vleqp"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_sr58d"]
-radius = 63.1114
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0gcnd"]
+radius = 14.8493
+height = 107.48
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bpj67"]
+size = Vector2(55.1543, 6.39405)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oyqhg"]
+size = Vector2(6, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vs4g8"]
 size = Vector2(346, 50)
@@ -21,7 +30,7 @@ size = Vector2(1167, 128)
 size = Vector2(24.5, 570)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wx66o"]
-size = Vector2(367, 48)
+size = Vector2(483, 65)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rfpgr"]
 radius = 13.0384
@@ -39,14 +48,25 @@ script = ExtResource("2_uwc8u")
 
 [node name="player" type="Sprite2D" parent="CharacterBody2D"]
 position = Vector2(177.484, -84.1457)
-texture = ExtResource("3_3lxgs")
+scale = Vector2(2, 2)
+texture = ExtResource("3_grvsw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(177.155, -83.7921)
-shape = SubResource("CircleShape2D_sr58d")
+position = Vector2(169, -110)
+rotation = -0.785398
+shape = SubResource("CapsuleShape2D_0gcnd")
 
 [node name="potion_spawn" type="Node2D" parent="CharacterBody2D"]
 position = Vector2(69.2964, -84.8528)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(128.409, -15.102)
+rotation = 0.84279
+shape = SubResource("RectangleShape2D_bpj67")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(242, -123)
+shape = SubResource("RectangleShape2D_oyqhg")
 
 [node name="ColorRect" type="Sprite2D" parent="."]
 z_index = -1
@@ -62,15 +82,16 @@ position = Vector2(-163, 25)
 shape = SubResource("RectangleShape2D_vs4g8")
 
 [node name="potion_selector" type="Sprite2D" parent="ColorRect"]
-position = Vector2(1038, 66)
-scale = Vector2(2, 2)
+position = Vector2(-194, 149)
+scale = Vector2(1.6, 1.6)
 texture = ExtResource("4_sjnbq")
 
 [node name="potion_choices" type="HBoxContainer" parent="ColorRect"]
-offset_left = -281.0
-offset_top = -54.0
-offset_right = 295.0
-offset_bottom = 58.0
+offset_left = -258.0
+offset_top = -42.0
+offset_right = 318.0
+offset_bottom = 70.0
+scale = Vector2(0.8, 0.8)
 
 [node name="RigidBody2D" type="RigidBody2D" parent="ColorRect"]
 position = Vector2(-576, -67)
@@ -85,7 +106,7 @@ position = Vector2(1158.25, -228)
 shape = SubResource("RectangleShape2D_wxhc5")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="ColorRect/RigidBody2D"]
-position = Vector2(986.5, -492)
+position = Vector2(928.5, -483.5)
 shape = SubResource("RectangleShape2D_wx66o")
 
 [node name="mix_stand" type="Sprite2D" parent="ColorRect"]
@@ -93,18 +114,19 @@ position = Vector2(416, 0)
 texture = ExtResource("6_bowb8")
 
 [node name="mix_container" type="HBoxContainer" parent="ColorRect/mix_stand"]
-offset_left = -55.0
-offset_top = -55.0
-offset_right = 57.0
-offset_bottom = 57.0
+offset_left = -44.0
+offset_top = -45.0
+offset_right = 68.0
+offset_bottom = 67.0
+scale = Vector2(0.8, 0.8)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="deliveriesContainer" type="HBoxContainer" parent="."]
 offset_left = 232.0
-offset_top = -319.0
+offset_top = -301.0
 offset_right = 546.0
-offset_bottom = -289.0
+offset_bottom = -271.0
 
-[node name="score label" type="Label" parent="HBoxContainer"]
+[node name="score label" type="Label" parent="deliveriesContainer"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
@@ -112,7 +134,7 @@ theme_override_fonts/font = ExtResource("7_nyjqb")
 theme_override_font_sizes/font_size = 20
 text = "deliveries made:"
 
-[node name="ui_score" type="Label" parent="HBoxContainer"]
+[node name="ui_score" type="Label" parent="deliveriesContainer"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
@@ -120,10 +142,211 @@ theme_override_fonts/font = ExtResource("7_nyjqb")
 theme_override_font_sizes/font_size = 20
 text = "0"
 
+[node name="dayContainer" type="HBoxContainer" parent="."]
+offset_left = 232.0
+offset_top = -326.0
+offset_right = 546.0
+offset_bottom = -296.0
+alignment = 1
+
+[node name="ui_day" type="Label" parent="dayContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "ui_day"
+
 [node name="level_end_check" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="level_end_check"]
-position = Vector2(-100, -58)
+position = Vector2(-252, 82)
 shape = SubResource("CircleShape2D_rfpgr")
 
+[node name="level_summary_background" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+texture = ExtResource("8_vleqp")
+
+[node name="title label" type="Label" parent="level_summary_background"]
+offset_left = -227.0
+offset_top = -199.0
+offset_right = 227.0
+offset_bottom = -160.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 35
+text = "LEVEL COMPLETE"
+horizontal_alignment = 1
+
+[node name="level_complete_row" type="HBoxContainer" parent="level_summary_background"]
+offset_left = -227.0
+offset_top = -84.0
+offset_right = 227.0
+offset_bottom = 82.0
+theme_override_constants/separation = 15
+
+[node name="LeftContainer" type="VBoxContainer" parent="level_summary_background/level_complete_row"]
+layout_mode = 2
+
+[node name="deliveries label" type="Label" parent="level_summary_background/level_complete_row/LeftContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "Deliveries Made:"
+horizontal_alignment = 2
+
+[node name="splatter label" type="Label" parent="level_summary_background/level_complete_row/LeftContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "potions wasted:"
+horizontal_alignment = 2
+
+[node name="unhappy label" type="Label" parent="level_summary_background/level_complete_row/LeftContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "angry clients:"
+horizontal_alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="level_summary_background/level_complete_row/LeftContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 30
+
+[node name="equals label" type="Label" parent="level_summary_background/level_complete_row/LeftContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "Score"
+horizontal_alignment = 2
+
+[node name="profit label" type="Label" parent="level_summary_background/level_complete_row/LeftContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "company profit"
+horizontal_alignment = 2
+
+[node name="middleContainer" type="VBoxContainer" parent="level_summary_background/level_complete_row"]
+layout_mode = 2
+
+[node name="ui_deliveries" type="Label" parent="level_summary_background/level_complete_row/middleContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "0 x"
+horizontal_alignment = 2
+
+[node name="ui_splatters" type="Label" parent="level_summary_background/level_complete_row/middleContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "0 x"
+horizontal_alignment = 2
+
+[node name="ui_unhappy" type="Label" parent="level_summary_background/level_complete_row/middleContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "0 x"
+horizontal_alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="level_summary_background/level_complete_row/middleContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 30
+
+[node name="equals label" type="Label" parent="level_summary_background/level_complete_row/middleContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "="
+horizontal_alignment = 1
+
+[node name="rightContainer" type="VBoxContainer" parent="level_summary_background/level_complete_row"]
+layout_mode = 2
+
+[node name="context_deliveries" type="Label" parent="level_summary_background/level_complete_row/rightContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "30"
+horizontal_alignment = 2
+
+[node name="context_splatters" type="Label" parent="level_summary_background/level_complete_row/rightContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "-5"
+horizontal_alignment = 2
+
+[node name="context_unhappy" type="Label" parent="level_summary_background/level_complete_row/rightContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "-15"
+horizontal_alignment = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="level_summary_background/level_complete_row/rightContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 30
+
+[node name="ui_final_score" type="Label" parent="level_summary_background/level_complete_row/rightContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 2
+
+[node name="ui_company_profit" type="Label" parent="level_summary_background/level_complete_row/rightContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("8_u5pkw")
+theme_override_font_sizes/font_size = 20
+text = "$ 0"
+horizontal_alignment = 2
+
+[node name="Button" type="Button" parent="level_summary_background"]
+offset_left = -12.0
+offset_top = 148.0
+offset_right = 52.0
+offset_bottom = 187.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("7_nyjqb")
+theme_override_font_sizes/font_size = 30
+text = "OK"
+flat = true
+
 [connection signal="area_entered" from="level_end_check" to="." method="_on_level_end_check_area_entered"]
+[connection signal="button_down" from="level_summary_background/Button" to="." method="_on_button_button_down"]

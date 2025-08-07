@@ -1,0 +1,121 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4env6us4rr5"]
+
+[ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="1_lkidt"]
+[ext_resource type="Texture2D" uid="uid://cg6lcsqcax324" path="res://Sprites/large window background.png" id="1_y43rl"]
+[ext_resource type="Script" path="res://Scripts/mission_prep.gd" id="2_ieeml"]
+
+[node name="Mission Prep" type="Sprite2D"]
+z_index = 1
+texture = ExtResource("1_y43rl")
+script = ExtResource("2_ieeml")
+
+[node name="title label" type="Label" parent="."]
+offset_left = -230.0
+offset_top = -203.0
+offset_right = 224.0
+offset_bottom = -164.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_lkidt")
+theme_override_font_sizes/font_size = 35
+text = "Today's Route"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+offset_left = -15.0
+offset_top = 144.0
+offset_right = 49.0
+offset_bottom = 183.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("1_lkidt")
+theme_override_font_sizes/font_size = 30
+text = "OK"
+flat = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = -229.0
+offset_top = -109.0
+offset_right = 229.0
+offset_bottom = 71.0
+theme_override_constants/separation = 0
+
+[node name="LeftContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="street label" type="Label" parent="HBoxContainer/LeftContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_lkidt")
+theme_override_font_sizes/font_size = 20
+text = "Street name: "
+horizontal_alignment = 2
+
+[node name="client label" type="Label" parent="HBoxContainer/LeftContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_lkidt")
+theme_override_font_sizes/font_size = 20
+text = "Clients: "
+horizontal_alignment = 2
+
+[node name="requirement label" type="Label" parent="HBoxContainer/LeftContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_lkidt")
+theme_override_font_sizes/font_size = 20
+text = "Requirement: "
+horizontal_alignment = 2
+
+[node name="notes label" type="Label" parent="HBoxContainer/LeftContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_lkidt")
+theme_override_font_sizes/font_size = 20
+text = "Notes: "
+horizontal_alignment = 2
+
+[node name="rightContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ui_street" type="Label" parent="HBoxContainer/rightContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_lkidt")
+theme_override_font_sizes/font_size = 20
+text = "ui_street_name"
+
+[node name="ui_client" type="Label" parent="HBoxContainer/rightContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_lkidt")
+theme_override_font_sizes/font_size = 20
+text = "ui_clients"
+
+[node name="ui_requirement" type="Label" parent="HBoxContainer/rightContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_lkidt")
+theme_override_font_sizes/font_size = 20
+text = "ui_requirement"
+
+[node name="ui_notes" type="Label" parent="HBoxContainer/rightContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_lkidt")
+theme_override_font_sizes/font_size = 20
+text = "ui_notes that are so long you have to get a book"
+autowrap_mode = 3
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

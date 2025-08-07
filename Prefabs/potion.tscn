@@ -1,16 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://djrcvjhi4rnfc"]
 
-[ext_resource type="Script" path="res://Scripts/potion.gd" id="1_7crx4"]
+[ext_resource type="Script" path="res://Scripts/potion.gd" id="1_4qcei"]
 [ext_resource type="Texture2D" uid="uid://dvbvtlil3pxkt" path="res://Sprites/potion.png" id="2_1s4cw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kofs6"]
 radius = 22.6715
 
-[node name="potion" type="CharacterBody2D"]
+[node name="potion" type="CharacterBody2D" groups=["potion"]]
 position = Vector2(609, 320)
 rotation = 0.785398
 collision_layer = 2
-script = ExtResource("1_7crx4")
+script = ExtResource("1_4qcei")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_1s4cw")
