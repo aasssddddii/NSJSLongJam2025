@@ -29,4 +29,5 @@ func setup_prep(input_data:Dictionary):
 
 
 func _on_button_button_down():
+	game_manager.play_sfx(game_manager.button_select)
 	get_parent().start_potion_boy(game_manager.game_level)

@@ -18,18 +18,19 @@ radius = 6.5
 size = Vector2(17, 18.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b0h5r"]
-size = Vector2(10.375, 10.875)
+size = Vector2(9, 42.0625)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_goffv"]
 size = Vector2(25, 32.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3isih"]
 
-[node name="castle_template" type="Sprite2D"]
+[node name="castle_template" type="Sprite2D" node_paths=PackedStringArray("negative_splatter_areas")]
 scale = Vector2(2, 2)
 texture = ExtResource("1_5qo4p")
 script = ExtResource("2_6of6t")
 house_closed_texture = ExtResource("1_p7kiy")
+negative_splatter_areas = [NodePath("negative_throw_spots/near side wall"), NodePath("negative_throw_spots/door side wall"), NodePath("negative_throw_spots/roof side")]
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-64, 48)
@@ -84,29 +85,36 @@ scale = Vector2(0.8, 0.8)
 position = Vector2(-31.5, 108.5)
 
 [node name="near side wall" type="Area2D" parent="negative_throw_spots"]
+position = Vector2(38, -179)
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="negative_throw_spots/near side wall"]
-position = Vector2(8, -113.5)
 shape = SubResource("RectangleShape2D_q5ixt")
 
 [node name="door side wall" type="Area2D" parent="negative_throw_spots"]
-position = Vector2(119.5, -99.5)
+position = Vector2(-10, -133)
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="negative_throw_spots/door side wall"]
-position = Vector2(-81, -34.5)
+position = Vector2(-1.5, -3.5)
 shape = SubResource("RectangleShape2D_b0h5r")
 
 [node name="roof side" type="Area2D" parent="negative_throw_spots"]
-position = Vector2(123.5, -151)
+position = Vector2(94.5, -126.5)
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="negative_throw_spots/roof side"]
-position = Vector2(-107.5, -17.375)
+shape = SubResource("RectangleShape2D_goffv")
+
+[node name="roof side2" type="Area2D" parent="negative_throw_spots"]
+position = Vector2(-44.5, -67.5)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="negative_throw_spots/roof side2"]
 shape = SubResource("RectangleShape2D_goffv")
 
 [node name="splatter layer" type="Node2D" parent="."]

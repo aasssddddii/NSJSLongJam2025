@@ -30,7 +30,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("1_bgomy")
 script = ExtResource("2_plmys")
 house_closed_texture = ExtResource("1_plylx")
-negative_splatter_areas = [NodePath("negative_throw_spots/near side wall"), NodePath("negative_throw_spots/door side wall"), NodePath("negative_throw_spots/roof side")]
+negative_splatter_areas = [NodePath("negative_throw_spots/near side wall"), NodePath("negative_throw_spots/door side wall"), NodePath("negative_throw_spots/roof side"), NodePath("negative_throw_spots/door side wall2"), NodePath("negative_throw_spots/roof side2")]
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-75, 48)

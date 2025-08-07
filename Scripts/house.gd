@@ -74,6 +74,7 @@ func clear_requirements():
 func update_requirements():
 	clear_requirements()
 	if potion_requirements != []:
+		game_manager.play_sfx(game_manager.potion_accepted)
 		display_potion_requirements(potion_requirements)
 	else:
 		requirement_finished(true)
@@ -85,7 +86,11 @@ func requirement_finished(potion_delivered:bool):
 	request_manager.visible = false
 	if !potion_delivered:
 		#negative stuff
+		
 		game_manager.unhappy_customers += 1
+		game_manager.play_sfx(game_manager.house_mad)
+	else:
+		game_manager.play_sfx(game_manager.house_happy)
 
 func close_house():
 	texture = house_closed_texture
@@ -117,9 +122,11 @@ func show_splatter(splatter_position,potion_type:GameManager.PotionType):
 		if valid_house:
 			valid_house = false
 			requirement_finished(false)
+			game_manager.play_sfx(game_manager.house_mad)
 		
 
 func setup_splatter(body):
+	game_manager.play_sfx(game_manager.splatter)
 	game_manager.level_splatters += 1
 	potion_attempts -=1
 	show_splatter(body.global_position,body.potion_type)

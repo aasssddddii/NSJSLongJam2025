@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://7y4gdhsi7d20"]
+[gd_scene load_steps=5 format=3 uid="uid://7y4gdhsi7d20"]
 
 [ext_resource type="Texture2D" uid="uid://dvbvtlil3pxkt" path="res://Sprites/potion.png" id="1_3ty50"]
 [ext_resource type="Script" path="res://Scripts/potion_selection_template.gd" id="2_b5j5j"]
 [ext_resource type="Texture2D" uid="uid://bk24gava7iftc" path="res://Sprites/infinity.png" id="3_npugs"]
+[ext_resource type="Theme" uid="uid://dch24fhxplenv" path="res://Fonts/potion_template.tres" id="4_qqd8c"]
 
 [node name="blank_potion" type="TextureRect"]
 texture = ExtResource("1_3ty50")
@@ -16,3 +17,18 @@ position = Vector2(56, 57)
 position = Vector2(86, 95)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_npugs")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 15.0
+offset_top = 62.0
+offset_right = 91.0
+offset_bottom = 91.0
+theme = ExtResource("4_qqd8c")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+text = "_"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="colorblind_move" type="Node2D" parent="."]
+position = Vector2(-4, 22)

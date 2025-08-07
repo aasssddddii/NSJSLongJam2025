@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dugv10rt4og57"
+path="res://.godot/imported/select down.ogg-01b8ee65d1c87f7640a9661d9a98895d.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/SFX/select down.ogg"
+dest_files=["res://.godot/imported/select down.ogg-01b8ee65d1c87f7640a9661d9a98895d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

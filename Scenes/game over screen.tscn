@@ -19,29 +19,35 @@ scale = Vector2(1.2, 1.2)
 texture = ExtResource("2_gvqct")
 
 [node name="title" type="Label" parent="."]
-offset_left = 316.0
+offset_left = 287.0
 offset_top = 77.0
-offset_right = 883.0
+offset_right = 854.0
 offset_bottom = 141.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("3_kcs1y")
-theme_override_font_sizes/font_size = 60
-text = "Game Over"
+theme_override_font_sizes/font_size = 50
+text = "Company Alert"
 horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-clip_contents = false
 offset_left = 290.0
 offset_top = 172.0
 offset_right = 857.0
-offset_bottom = 609.0
+offset_bottom = 573.0
 
-[node name="Container" type="VBoxContainer" parent="ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
 
-[node name="title2" type="Label" parent="ScrollContainer/Container"]
+[node name="Container" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 25
+
+[node name="title2" type="Label" parent="ScrollContainer/MarginContainer/Container"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
@@ -50,7 +56,17 @@ theme_override_font_sizes/font_size = 28
 text = "Thanks to your precise aim and questionable ethics, Potion Slangers™ is thriving again! Bankruptcy has been banished, customers are in love with our products, and you're officially the hero of the company. Nice work!"
 autowrap_mode = 3
 
-[node name="done" type="Button" parent="ScrollContainer/Container"]
+[node name="title3" type="Label" parent="ScrollContainer/MarginContainer/Container"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_kcs1y")
+theme_override_font_sizes/font_size = 65
+text = "Game Over"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="done" type="Button" parent="ScrollContainer/MarginContainer/Container"]
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0, 1, 1, 1)
@@ -61,4 +77,4 @@ theme_override_font_sizes/font_size = 40
 text = "next"
 flat = true
 
-[connection signal="button_down" from="ScrollContainer/Container/done" to="." method="_on_done_button_down"]
+[connection signal="button_down" from="ScrollContainer/MarginContainer/Container/done" to="." method="_on_done_button_down"]

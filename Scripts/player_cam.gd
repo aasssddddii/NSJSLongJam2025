@@ -15,6 +15,7 @@ var speed_up:bool
 
 func _ready():
 	level_summary_background.visible = false
+	game_manager.pickup_player_audio(self)
 
 func _process(delta):
 	if speed_up && scroll_speed.x < max_speed.x:

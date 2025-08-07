@@ -23,9 +23,14 @@ enum PotionType {
 @onready var intro_scene = preload("res://Scenes/intro screen.tscn")
 @onready var prep_lib = preload("res://Resources/Prep_Library.tres")
 @onready var potion_boy_scene = preload("res://Scenes/potion boy test.tscn")
+@onready var transitioner_prefab = preload("res://Scenes/scene transitioner.tscn")
 var requestable_potions:Array[PotionType] = [PotionType.BLUE,PotionType.RED,PotionType.YELLOW,PotionType.GREEN,PotionType.ORANGE,PotionType.PURPLE,PotionType.BLACK]
 var splatter_textures:Array[String] = ["res://Sprites/splatter1.png","res://Sprites/splatter2.png","res://Sprites/splatter3.png"]
 var rng = RandomNumberGenerator.new()
+
+
+
+
 
 var shown_end_credits:bool
 var show_end_splash:bool
@@ -43,13 +48,42 @@ var level_score:int
 
 @onready var highscore_lib:Resource = preload("res://Resources/Highscore_library.tres")
 
-#var overtime_unlocked:bool
+var color_blind_mode:bool #= true
 
+var ui_jukebox= AudioStreamPlayer2D.new()
+var ui_sfx_generator = AudioStreamPlayer2D.new()
+
+var sfx_volume:int# = 0
+var music_volume:int
+
+var transitioner
 
 var potion_selector_prefab = preload("res://Prefabs/potion_template.tscn")
 
 var game_level:int #= 5
 
+func _ready():
+	add_child(ui_jukebox)
+	add_child(ui_sfx_generator)
+	ui_jukebox.bus = "Music"
+	ui_sfx_generator.bus = "SFX"
+	ui_jukebox.volume_db = 1
+	ui_sfx_generator.volume_db = 1
+	transitioner = transitioner_prefab.instantiate()
+	get_tree().root.add_child.call_deferred(transitioner)
+	
+
+
+func pickup_player_audio(parent:Node2D):
+	ui_jukebox.reparent(parent)
+	ui_sfx_generator.reparent(parent)
+	
+func return_player_audio():
+	ui_jukebox.global_position = Vector2.ZERO
+	ui_sfx_generator.global_position = Vector2.ZERO
+	ui_jukebox.reparent(self)
+	ui_sfx_generator.reparent(self)
+	
 func get_new_potion_request(level:int):
 	var rng_potion_index_low:int
 	var rng_potion_index_high:int = 6
@@ -76,6 +110,8 @@ func get_new_potion_request(level:int):
 	return returned_request
 
 func change_scene(from_scene,to_scene):
+	await transistion_to_scene().timeout
+	stop_music()
 	var next_scene = to_scene.instantiate()
 	if to_scene == level_select_screen && !shown_intro_scene:
 		next_scene = intro_scene.instantiate()
@@ -83,14 +119,21 @@ func change_scene(from_scene,to_scene):
 	if to_scene == level_select_screen && !shown_overtime_intro_scene && shown_intro_scene && level_5_complete:
 		next_scene = overtime_start_scene.instantiate()
 		shown_overtime_intro_scene = true
-	add_child(next_scene)
-	if to_scene == credits_screen && show_end_splash && !shown_end_credits:
+	get_tree().root.add_child.call_deferred(next_scene)
+	if to_scene == potion_boy_scene:
+		play_music(game_music)
+	if to_scene == credits_screen && show_end_splash:
+		await get_tree().create_timer(.5).timeout
 		next_scene.show_win_splash()
 	from_scene.queue_free()
+	transition_from_scene()
 	
 func finish_level_scene(level_node):
+	play_sfx(button_select)
+	await get_tree().create_timer(.5).timeout
+	return_player_audio()
 	#set highscore
-	print("finishins for game level: ", game_level)
+	print("finishing for game level: ", game_level)
 	var level_highscore_ref = highscore_lib.get_level_highscore(game_level)
 	if level_highscore_ref["deliveries_made"] < deliveries_made:
 		level_highscore_ref["score"] = level_score
@@ -147,3 +190,45 @@ func level_reset():
 	unhappy_customers = 0
 	level_score = 0
 	
+#sfx paths
+var button_select = "res://Audio/SFX/button_select.ogg"
+var house_happy = "res://Audio/SFX/house happy.ogg"
+var house_mad = "res://Audio/SFX/house mad.ogg"
+var mix_created = "res://Audio/SFX/mix created.ogg"
+var mix_started = "res://Audio/SFX/mix started.ogg"
+var player_throw = "res://Audio/SFX/player throw.ogg"
+var potion_accepted = "res://Audio/SFX/potion accepted.ogg"
+var splatter = "res://Audio/SFX/splatter.ogg"
+#music path
+var game_music = "res://Audio/potion_boy theme.ogg"
+	
+func play_sfx(sfx_path:String):
+	ui_sfx_generator.stream = load(sfx_path)
+	ui_sfx_generator.play()
+	
+func play_music(music_path:String):
+	ui_jukebox.stream = load(music_path)
+	ui_jukebox.play()
+	
+func stop_music():
+	ui_jukebox.stop()
+	
+func mute_audio():
+	ui_sfx_generator.stop()
+	ui_jukebox.stop()
+	ui_sfx_generator.volume_db = -80
+	ui_jukebox.volume_db = -80
+	
+func unmute_audio():
+	ui_sfx_generator.volume_db = 0
+	ui_jukebox.volume_db = 0
+
+func transistion_to_scene():
+	var animator:AnimationPlayer = transitioner.animator
+	animator.play("bubble out")
+	return get_tree().create_timer(.8)
+	
+func transition_from_scene():
+	var animator:AnimationPlayer = transitioner.animator
+	await get_tree().create_timer(.8).timeout
+	animator.play("bubble in")

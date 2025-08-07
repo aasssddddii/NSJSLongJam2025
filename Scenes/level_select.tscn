@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://gesn7g62ia3l"]
+[gd_scene load_steps=10 format=3 uid="uid://gesn7g62ia3l"]
 
 [ext_resource type="Script" path="res://Scripts/scene scripts/level_select.gd" id="1_bxhl5"]
 [ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="2_t1oyu"]
 [ext_resource type="Texture2D" uid="uid://kjr7l3k0jmeo" path="res://Sprites/easy_level_bg.png" id="3_u25nd"]
 [ext_resource type="Script" path="res://Scripts/level_select_button.gd" id="4_udwv3"]
-[ext_resource type="FontFile" uid="uid://bfyyf8ga4v1n" path="res://Fonts/ari-w9500-display.ttf" id="4_yn8in"]
 [ext_resource type="Texture2D" uid="uid://cnqskaa4jx6wf" path="res://Sprites/medium_level_bg.png" id="5_84w5c"]
 [ext_resource type="Texture2D" uid="uid://cd64i8y6ckn3a" path="res://Sprites/gold star.png" id="5_tn2ex"]
 [ext_resource type="Texture2D" uid="uid://bwje71o1pl0pf" path="res://Sprites/hard_level_bg.png" id="6_bfshv"]
@@ -62,27 +61,27 @@ vertical_alignment = 1
 
 [node name="ui_highscore" type="Label" parent="GridContainer/ui_monday"]
 layout_mode = 0
-offset_left = 96.25
+offset_left = 77.5
 offset_top = -50.0
-offset_right = 136.25
+offset_right = 117.5
 offset_bottom = 4.99998
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_yn8in")
+theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40
 text = "0"
 
 [node name="required label" type="Label" parent="GridContainer/ui_monday"]
 layout_mode = 0
-offset_left = 136.25
+offset_left = 117.5
 offset_top = -50.0
-offset_right = 198.25
+offset_right = 181.5
 offset_bottom = 4.99998
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_yn8in")
+theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40
-text = "/ 1"
+text = "/1"
 
 [node name="star BG" type="Sprite2D" parent="GridContainer/ui_monday"]
 self_modulate = Color(0, 0, 0, 1)
@@ -118,27 +117,27 @@ vertical_alignment = 1
 
 [node name="ui_highscore" type="Label" parent="GridContainer/ui_tuesday"]
 layout_mode = 0
-offset_left = 96.25
+offset_left = 82.5
 offset_top = -50.0
-offset_right = 136.25
+offset_right = 122.5
 offset_bottom = 4.99998
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_yn8in")
+theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40
 text = "0"
 
 [node name="required label" type="Label" parent="GridContainer/ui_tuesday"]
 layout_mode = 0
-offset_left = 136.25
+offset_left = 122.5
 offset_top = -50.0
-offset_right = 198.25
+offset_right = 198.5
 offset_bottom = 4.99998
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_yn8in")
+theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40
-text = "/ 3"
+text = "/3"
 
 [node name="star BG" type="Sprite2D" parent="GridContainer/ui_tuesday"]
 self_modulate = Color(0, 0, 0, 1)
@@ -174,27 +173,27 @@ vertical_alignment = 1
 
 [node name="ui_highscore" type="Label" parent="GridContainer/ui_wednesday"]
 layout_mode = 0
-offset_left = 96.25
+offset_left = 82.5
 offset_top = -50.0
-offset_right = 136.25
+offset_right = 122.5
 offset_bottom = 4.99998
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_yn8in")
+theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40
 text = "0"
 
 [node name="required label" type="Label" parent="GridContainer/ui_wednesday"]
 layout_mode = 0
-offset_left = 136.25
+offset_left = 122.5
 offset_top = -50.0
-offset_right = 198.25
+offset_right = 198.5
 offset_bottom = 4.99998
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_yn8in")
+theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40
-text = "/ 3"
+text = "/3"
 
 [node name="star BG" type="Sprite2D" parent="GridContainer/ui_wednesday"]
 self_modulate = Color(0, 0, 0, 1)
@@ -230,27 +229,27 @@ vertical_alignment = 1
 
 [node name="ui_highscore" type="Label" parent="GridContainer/ui_thursday"]
 layout_mode = 0
-offset_left = 96.25
+offset_left = 82.5
 offset_top = -50.0
-offset_right = 136.25
+offset_right = 122.5
 offset_bottom = 4.99998
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_yn8in")
+theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40
 text = "0"
 
 [node name="required label" type="Label" parent="GridContainer/ui_thursday"]
 layout_mode = 0
-offset_left = 136.25
+offset_left = 122.5
 offset_top = -50.0
-offset_right = 198.25
+offset_right = 198.5
 offset_bottom = 4.99998
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_yn8in")
+theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40
-text = "/ 4"
+text = "/4"
 
 [node name="star BG" type="Sprite2D" parent="GridContainer/ui_thursday"]
 self_modulate = Color(0, 0, 0, 1)
@@ -286,27 +285,27 @@ vertical_alignment = 1
 
 [node name="ui_highscore" type="Label" parent="GridContainer/ui_friday"]
 layout_mode = 0
-offset_left = 96.25
+offset_left = 82.5
 offset_top = -50.0
-offset_right = 136.25
+offset_right = 122.5
 offset_bottom = 4.99998
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_yn8in")
+theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40
 text = "0"
 
 [node name="required label" type="Label" parent="GridContainer/ui_friday"]
 layout_mode = 0
-offset_left = 136.25
+offset_left = 122.5
 offset_top = -50.0
-offset_right = 198.25
+offset_right = 198.5
 offset_bottom = 4.99998
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_yn8in")
+theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40
-text = "/ 4"
+text = "/4"
 
 [node name="star BG" type="Sprite2D" parent="GridContainer/ui_friday"]
 self_modulate = Color(0, 0, 0, 1)
@@ -342,27 +341,27 @@ vertical_alignment = 1
 
 [node name="ui_highscore" type="Label" parent="GridContainer/ui_saturday"]
 layout_mode = 0
-offset_left = 96.25
+offset_left = 82.5
 offset_top = -50.0
-offset_right = 136.25
+offset_right = 122.5
 offset_bottom = 4.99998
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_yn8in")
+theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40
 text = "0"
 
 [node name="required label" type="Label" parent="GridContainer/ui_saturday"]
 layout_mode = 0
-offset_left = 136.25
+offset_left = 122.5
 offset_top = -50.0
-offset_right = 198.25
+offset_right = 198.5
 offset_bottom = 4.99998
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_yn8in")
+theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40
-text = "/ 6"
+text = "/6"
 
 [node name="star BG" type="Sprite2D" parent="GridContainer/ui_saturday"]
 self_modulate = Color(0, 0, 0, 1)
@@ -398,27 +397,27 @@ vertical_alignment = 1
 
 [node name="ui_highscore" type="Label" parent="GridContainer/ui_sunday"]
 layout_mode = 0
-offset_left = 96.25
+offset_left = 82.5
 offset_top = -50.0
-offset_right = 136.25
+offset_right = 122.5
 offset_bottom = 4.99998
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_yn8in")
+theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40
 text = "0"
 
 [node name="required label" type="Label" parent="GridContainer/ui_sunday"]
 layout_mode = 0
-offset_left = 136.25
+offset_left = 122.5
 offset_top = -50.0
-offset_right = 198.25
+offset_right = 198.5
 offset_bottom = 4.99998
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_yn8in")
+theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40
-text = "/ 6"
+text = "/6"
 
 [node name="star BG" type="Sprite2D" parent="GridContainer/ui_sunday"]
 self_modulate = Color(0, 0, 0, 1)

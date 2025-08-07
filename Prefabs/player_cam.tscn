@@ -71,7 +71,7 @@ shape = SubResource("RectangleShape2D_oyqhg")
 [node name="ColorRect" type="Sprite2D" parent="."]
 z_index = -1
 z_as_relative = false
-position = Vector2(-2, 257)
+position = Vector2(-1, 259)
 texture = ExtResource("4_wajkl")
 
 [node name="OOB" type="Area2D" parent="ColorRect"]

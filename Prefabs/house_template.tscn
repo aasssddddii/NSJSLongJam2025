@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://id0k7df2p4ef"]
+[gd_scene load_steps=15 format=3 uid="uid://id0k7df2p4ef"]
 
 [ext_resource type="Texture2D" uid="uid://b5tr7kal7dd0w" path="res://Sprites/house.png" id="1_4234v"]
 [ext_resource type="Texture2D" uid="uid://xdqkujba2u8u" path="res://Sprites/house_open.png" id="1_frxi5"]
@@ -17,6 +17,9 @@ radius = 6.5
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f83hs"]
 size = Vector2(12.5, 53.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5sduy"]
+size = Vector2(18, 58)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1g6cy"]
 size = Vector2(7.5, 24)
 
@@ -33,7 +36,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("1_frxi5")
 script = ExtResource("2_j0e8n")
 house_closed_texture = ExtResource("1_4234v")
-negative_splatter_areas = [NodePath("negative_throw_spots/near side wall"), NodePath("negative_throw_spots/door side wall"), NodePath("negative_throw_spots/roof side")]
+negative_splatter_areas = [NodePath("negative_throw_spots/near side wall"), NodePath("negative_throw_spots/door side wall"), NodePath("negative_throw_spots/roof side"), NodePath("negative_throw_spots/roof side2"), NodePath("negative_throw_spots/near side wall2")]
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-75, 48)
@@ -56,10 +59,11 @@ texture = ExtResource("4_dk2so")
 flip_v = true
 
 [node name="request_container" type="HBoxContainer" parent="request_manager"]
-offset_left = -69.5
-offset_top = -16.5
-offset_right = 64.5
-offset_bottom = 23.5
+offset_left = -69.0
+offset_top = -25.0
+offset_right = 93.0
+offset_bottom = 35.0
+scale = Vector2(0.8, 0.8)
 alignment = 1
 
 [node name="bound_checker" type="Area2D" parent="request_manager"]
@@ -93,6 +97,15 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="negative_throw_spots/near side wall"]
 shape = SubResource("RectangleShape2D_f83hs")
+
+[node name="near side wall2" type="Area2D" parent="negative_throw_spots"]
+position = Vector2(-40.5, -45)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="negative_throw_spots/near side wall2"]
+position = Vector2(-7.5, -19)
+shape = SubResource("RectangleShape2D_5sduy")
 
 [node name="door side wall" type="Area2D" parent="negative_throw_spots"]
 position = Vector2(119.5, -106)

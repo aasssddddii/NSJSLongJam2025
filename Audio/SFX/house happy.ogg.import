@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cwe8rhsql0405"
+path="res://.godot/imported/house happy.ogg-b7ef5f3ca396da4edbb7fbff4d4388e8.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/SFX/house happy.ogg"
+dest_files=["res://.godot/imported/house happy.ogg-b7ef5f3ca396da4edbb7fbff4d4388e8.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

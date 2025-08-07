@@ -15,9 +15,17 @@ run/main_scene="res://Scenes/start screen.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://Audio/default_bus_layout.tres"
+
 [autoload]
 
 GameManager="*res://Scripts/GameManager.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [input]
 

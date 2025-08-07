@@ -11,8 +11,9 @@ var game_manager = GameManager
 @onready var house_layer = $"house layer"
 @onready var stage_end_checker = $stage_end
 @onready var oob_detector = $"OOB Detector"
+@onready var tile_map = $TileMap
 const stage_end_offset:Vector2 = Vector2(-600,0)
-var next_house_position:Vector2 = Vector2(600,0)
+var next_house_position:Vector2 = Vector2(820,0)
 const house_offset:Vector2 = Vector2(1200,0)
 const house_amount:int = 6
 const castle_offset:Vector2 = Vector2(0,-40)
@@ -26,6 +27,9 @@ func _ready():
 	
 	
 func create_level():
+	#setup grass visuals
+	tilemap_transposer()
+	
 	#spawn houses
 	spawn_houses()
 	
@@ -76,5 +80,26 @@ func remove_oob_potion(area):
 		game_manager.level_splatters += 1
 		area.queue_free()
 	
+	
+func tilemap_transposer():
+	var used_cells = tile_map.get_used_cells(0)
+	for cell in used_cells:
+		#print("cell coords: ", tile_map.get_cell_atlas_coords(0,cell))
+		tile_map.set_cell(0,cell,0,get_transposed_tile(tile_map.get_cell_atlas_coords(0,cell)))
+	
+func get_transposed_tile(atlas_coord:Vector2):
+	var new_atlas
+	match game_manager.game_level:
+		1:
+			return atlas_coord
+		2,3:
+			new_atlas = atlas_coord + Vector2(0,3)
+			return new_atlas
+		4,5:
+			new_atlas = atlas_coord + Vector2(0,6)
+			return new_atlas
+		6,7:
+			new_atlas = atlas_coord + Vector2(0,9)
+			return new_atlas
 	
 	

@@ -41,6 +41,7 @@ func show_unlocked_levels():
 			var current_check_level_button = level_buttons[level_check_index]
 			current_check_level_button.ui_deliveries_node.text = var_to_str(game_manager.deliveries_made)
 			current_check_level_button.complete_star.visible = true
+			current_check_level_button.get_child(1).text = var_to_str(level["deliveries_made"])
 			level_buttons[level_check_index+1].visible = true
 		elif testing:
 			level_buttons[level_check_index].visible = true
@@ -49,28 +50,36 @@ func show_unlocked_levels():
 		level_check_index+=1
 
 func _on_back_button_down():
+	game_manager.play_sfx(game_manager.button_select)
 	game_manager.change_scene(self,game_manager.start_screen)
 
 
 func _on_ui_monday_button_down():
+	game_manager.play_sfx(game_manager.button_select)
 	game_manager.game_level = 1
 	start_prep_window(game_manager.game_level)
 func _on_ui_tuesday_button_down():
+	game_manager.play_sfx(game_manager.button_select)
 	game_manager.game_level = 2
 	start_prep_window(game_manager.game_level)
 func _on_ui_wednesday_button_down():
+	game_manager.play_sfx(game_manager.button_select)
 	game_manager.game_level = 3
 	start_prep_window(game_manager.game_level)
 func _on_ui_thursday_button_down():
+	game_manager.play_sfx(game_manager.button_select)
 	game_manager.game_level = 4
 	start_prep_window(game_manager.game_level)
 func _on_ui_friday_button_down():
+	game_manager.play_sfx(game_manager.button_select)
 	game_manager.game_level = 5
 	start_prep_window(game_manager.game_level)
 func _on_ui_saturday_button_down():
+	game_manager.play_sfx(game_manager.button_select)
 	game_manager.game_level = 6
 	start_prep_window(game_manager.game_level)
 func _on_ui_sunday_button_down():
+	game_manager.play_sfx(game_manager.button_select)
 	game_manager.game_level = 7
 	start_prep_window(game_manager.game_level)
 

@@ -36,9 +36,9 @@ text = "OK"
 flat = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-offset_left = -229.0
+offset_left = -240.0
 offset_top = -109.0
-offset_right = 229.0
+offset_right = 240.0
 offset_bottom = 71.0
 theme_override_constants/separation = 0
 

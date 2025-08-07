@@ -30,7 +30,7 @@ var discard_potion_index:int
 
 @onready var player_sprite = $player
 var can_throw:bool = true
-var throw_cooldown
+var throw_cooldown = .5 # +.3
 
 func _ready():
 	var level_data_ref = game_manager.prep_lib.get_level_prep(game_manager.game_level)
@@ -53,6 +53,7 @@ func _input(event):
 	if player_in_control:
 		if event.is_action_pressed("throw_item") && can_throw:
 			if selected_potion_type != GameManager.PotionType.NONE:
+				game_manager.play_sfx(game_manager.player_throw)
 				animate_player_throw()
 				can_throw = false
 				var next_potion = game_manager.potion_prefab.instantiate()
@@ -155,11 +156,13 @@ func select_mixer_potion():
 	
 func send_to_mixer(type:GameManager.PotionType):
 	if potion_mixer_type == game_manager.PotionType.NONE:#setup new mix
+		game_manager.play_sfx(game_manager.mix_started)
 		potion_mixer_type = type
 		var mixer_potion = game_manager.potion_selector_prefab.instantiate()
 		potion_mix_parent.add_child(mixer_potion)
 		mixer_potion.setup_potion(potion_mixer_type)
 	else:#mix the color
+		game_manager.play_sfx(game_manager.mix_created)
 		var current_mix_potion = potion_mix_parent.get_child(0)
 		match potion_mixer_type:
 			GameManager.PotionType.RED:
@@ -235,5 +238,5 @@ func animate_player_throw():
 	player_sprite.texture = load("res://Sprites/player_throw.png")
 	await get_tree().create_timer(.3).timeout
 	player_sprite.texture = load("res://Sprites/player_bag.png")
-	await get_tree().create_timer(.7).timeout
+	await get_tree().create_timer(throw_cooldown).timeout
 	can_throw = true
