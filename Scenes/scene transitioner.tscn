@@ -1,30 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://be7xq1as7uvvb"]
 
-[ext_resource type="Shader" path="res://misc visual assets/test_transition.gdshader" id="1_3fr58"]
 [ext_resource type="Script" path="res://Scripts/scene scripts/scene transitioner.gd" id="1_b3gni"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jb053"]
-shader = ExtResource("1_3fr58")
-shader_parameter/time = 0.0
-shader_parameter/screen_size = Vector2(1162, 658)
-shader_parameter/pixel_size = 4.0
-shader_parameter/offset = 3
-shader_parameter/circle_size = 10
-
-[sub_resource type="Animation" id="Animation_sxoev"]
-resource_name = "bubble out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:material:shader_parameter/time")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 3.0]
-}
+[ext_resource type="Material" uid="uid://bnyl8fig8gt8g" path="res://misc visual assets/scene transition.tres" id="2_dqq6u"]
+[ext_resource type="Texture2D" uid="uid://c2qvnuq2f6upx" path="res://Sprites/Generic Background.png" id="3_pw5ip"]
 
 [sub_resource type="Animation" id="Animation_k5l2k"]
 resource_name = "RESET"
@@ -39,6 +17,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_hav2k"]
@@ -55,6 +45,45 @@ tracks/0/keys = {
 "update": 0,
 "values": [3.0, 0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_sxoev"]
+resource_name = "bubble out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/time")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 3.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yhlbx"]
 _data = {
@@ -67,13 +96,21 @@ _data = {
 script = ExtResource("1_b3gni")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_jb053")
+visible = false
+material = ExtResource("2_dqq6u")
 offset_left = -4.0
 offset_top = -4.0
 offset_right = 1158.0
 offset_bottom = 654.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+material = ExtResource("2_dqq6u")
+position = Vector2(579, 326)
+scale = Vector2(1.0191, 1.03395)
+texture = ExtResource("3_pw5ip")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

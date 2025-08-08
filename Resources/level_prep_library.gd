@@ -7,21 +7,21 @@ var level_1_prep_data:Dictionary = {
 	"day":"Monday",
 	"clients":6,
 	"required":1,
-	"notes":["dont drink the potions", "try to get some headshots", "that house was always red, right?","try not to melt the mailbox again"]
+	"notes":["dont drink the potions", "try to get some headshots", "that house was always red, right?","try not to melt the mailbox again","half the battle is knowing where to throw","trust your throwing arm"]
 }
 var level_2_prep_data:Dictionary = {
 	"street_name":"Village Vly.",
 	"day":"Tuesday",
 	"clients":6,
 	"required":3,#endgame testing
-	"notes":["if it’s bubbling, it’s working", "aim for the door, not the window", "always shake before throwing"]
+	"notes":["if it’s bubbling, it’s working", "aim for the door, not the window", "always shake before throwing","more deliveries, fewer explosions — that’s the goal","mix fast, throw faster"]
 }
 var level_3_prep_data:Dictionary = {
 	"street_name":"Coventry Ct.",
 	"day":"Wednesday",
 	"clients":6,
 	"required":3,#endgame testing
-	"notes":["delivery window: 3–5 seconds", "2", "3"]
+	"notes":["delivery window, 3–5 seconds", "hit the target, dodge the lawsuits", "potions first, questions later"]
 }
 var level_4_prep_data:Dictionary = {
 	"street_name":"Witches Wy.",

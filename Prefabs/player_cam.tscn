@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cwoedy5df1on3"]
+[gd_scene load_steps=19 format=3 uid="uid://cwoedy5df1on3"]
 
 [ext_resource type="Script" path="res://Scripts/player_cam.gd" id="1_2cly1"]
 [ext_resource type="Script" path="res://Scripts/player_controller.gd" id="2_uwc8u"]
@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="7_nyjqb"]
 [ext_resource type="FontFile" uid="uid://bdq2hhymbo0sd" path="res://Fonts/newpotionboy.ttf" id="8_u5pkw"]
 [ext_resource type="Texture2D" uid="uid://cg6lcsqcax324" path="res://Sprites/large window background.png" id="8_vleqp"]
+[ext_resource type="StyleBox" uid="uid://c6h4nvnui5w0l" path="res://misc visual assets/button_hover stylebox.tres" id="10_cpdvf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0gcnd"]
 radius = 14.8493
@@ -339,12 +340,12 @@ offset_left = -12.0
 offset_top = 148.0
 offset_right = 52.0
 offset_bottom = 187.0
-focus_mode = 0
 theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("7_nyjqb")
 theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = ExtResource("10_cpdvf")
 text = "OK"
 flat = true
 

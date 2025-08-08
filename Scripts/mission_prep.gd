@@ -6,7 +6,7 @@ var game_manager = GameManager
 @onready var ui_client = $HBoxContainer/rightContainer/ui_client
 @onready var ui_requirement = $HBoxContainer/rightContainer/ui_requirement
 @onready var ui_notes = $HBoxContainer/rightContainer/ui_notes
-
+@onready var ui_title = $"title label"
 var prep_data:Dictionary
 #{
 #	"street_name":"",
@@ -23,9 +23,10 @@ func setup_prep(input_data:Dictionary):
 	ui_client.text = var_to_str(prep_data["clients"])
 	ui_requirement.text = var_to_str(prep_data["required"])
 	ui_notes.text = prep_data["notes"].pick_random()
-	
+	ui_title.text = prep_data["day"] + "'s Route"
 	visible = true
 	
+	$Button.call_deferred("grab_focus")
 
 
 func _on_button_button_down():

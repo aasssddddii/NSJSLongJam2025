@@ -1,6 +1,7 @@
 extends Node
 
 var game_manager = GameManager
+const scroll_window_speed:int = 25
 
 enum PotionType {
 	NONE,
@@ -100,9 +101,17 @@ func get_new_potion_request(level:int):
 		3:
 			rng_potion_index_high = 5
 			required_amount_high = 2
-		4,5:
+		4:
 			required_amount_high = 3
-			
+		5:
+			required_amount_low = 2
+			required_amount_high = 3
+		6:
+			required_amount_low = 2
+			required_amount_high = 3
+		7:
+			required_amount_low = 3
+			required_amount_high = 3
 	#pick how many potions required
 	for i in rng.randi_range(required_amount_low,required_amount_high):
 		#pick which potion is next
@@ -133,7 +142,7 @@ func finish_level_scene(level_node):
 	await get_tree().create_timer(.5).timeout
 	return_player_audio()
 	#set highscore
-	print("finishing for game level: ", game_level)
+	print("High score check: ", highscore_lib.get_level_highscore(game_level), " < ", deliveries_made)
 	var level_highscore_ref = highscore_lib.get_level_highscore(game_level)
 	if level_highscore_ref["deliveries_made"] < deliveries_made:
 		level_highscore_ref["score"] = level_score
@@ -174,6 +183,12 @@ func finish_level_scene(level_node):
 			level_reset()
 	elif requirment_meet && game_level == 7:
 			print("Showing OVERTIME Game Over Win screen")
+			if level_highscore_ref["deliveries_made"] < deliveries_made:
+				level_highscore_ref["score"] = level_score
+				level_highscore_ref["deliveries_made"] = deliveries_made
+				level_highscore_ref["houses_hit"] = level_splatters
+				level_highscore_ref["angry_clients"] = unhappy_customers
+				level_highscore_ref["profit"] = company_profits
 			change_scene(level_node,overtime_complete_scene)
 			level_reset()
 	else:
@@ -199,6 +214,8 @@ var mix_started = "res://Audio/SFX/mix started.ogg"
 var player_throw = "res://Audio/SFX/player throw.ogg"
 var potion_accepted = "res://Audio/SFX/potion accepted.ogg"
 var splatter = "res://Audio/SFX/splatter.ogg"
+var select_up = "res://Audio/SFX/select up.ogg"
+var select_down = "res://Audio/SFX/select down.ogg"
 #music path
 var game_music = "res://Audio/potion_boy theme.ogg"
 	
@@ -225,10 +242,10 @@ func unmute_audio():
 
 func transistion_to_scene():
 	var animator:AnimationPlayer = transitioner.animator
-	animator.play("bubble out")
+	animator.play("bubble in")
 	return get_tree().create_timer(.8)
 	
 func transition_from_scene():
 	var animator:AnimationPlayer = transitioner.animator
 	await get_tree().create_timer(.8).timeout
-	animator.play("bubble in")
+	animator.play("bubble out")

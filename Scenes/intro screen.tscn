@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlljebi3js1jx"]
+[gd_scene load_steps=5 format=3 uid="uid://dlljebi3js1jx"]
 
 [ext_resource type="Script" path="res://Scripts/scene scripts/intro screen.gd" id="1_qwc5e"]
 [ext_resource type="Texture2D" uid="uid://cg6lcsqcax324" path="res://Sprites/large window background.png" id="2_ikbsb"]
 [ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="3_dlo5g"]
+[ext_resource type="StyleBox" uid="uid://c6h4nvnui5w0l" path="res://misc visual assets/button_hover stylebox.tres" id="4_82ib7"]
 
 [node name="intro screen" type="Node2D"]
 script = ExtResource("1_qwc5e")
@@ -12,6 +13,7 @@ offset_left = -3.0
 offset_top = -2.0
 offset_right = 1158.0
 offset_bottom = 656.0
+color = Color(0.784314, 0.709804, 1, 1)
 
 [node name="background" type="Sprite2D" parent="."]
 position = Vector2(569, 324)
@@ -36,6 +38,7 @@ offset_left = 290.0
 offset_top = 172.0
 offset_right = 857.0
 offset_bottom = 581.0
+follow_focus = true
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
 layout_mode = 2
@@ -74,7 +77,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("3_dlo5g")
 theme_override_font_sizes/font_size = 28
-text = "All we should need is a weeks worth of slangin. But here at Potion Slangers™ all we do is hard slangin.
+text = "All we should need is a weeks worth of slangin. But here at Potion Slangers all we do is hard slangin.
 
 Good Luck,
 The CEO"
@@ -82,12 +85,13 @@ autowrap_mode = 3
 
 [node name="done" type="Button" parent="ScrollContainer/MarginContainer/Container"]
 layout_mode = 2
-focus_mode = 0
+focus_mode = 1
 theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("3_dlo5g")
 theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = ExtResource("4_82ib7")
 text = "next"
 flat = true
 

@@ -72,9 +72,11 @@ func _input(event):
 		if event.is_action_pressed("potion_left"):
 			#potion menu left
 			change_selector("left")
+			game_manager.play_sfx(game_manager.select_down)
 		if event.is_action_pressed("potion_right"):
 			#potion menu right
 			change_selector("right")
+			game_manager.play_sfx(game_manager.select_up)
 		if event.is_action_pressed("potion_mix"):
 			#send potion to mix station
 			if selected_potion_index != -1:

@@ -37,15 +37,21 @@ func show_unlocked_levels():
 	print("checking for completed levels")
 	var level_check_index:int
 	for level in game_manager.highscore_lib.levels:
-		if level["completed"] && level_check_index+1 < level_buttons.size():
+		back_button.focus_neighbor_left = NodePath(ui_level_1.get_path())
+		if level["completed"]:
 			var current_check_level_button = level_buttons[level_check_index]
 			current_check_level_button.ui_deliveries_node.text = var_to_str(game_manager.deliveries_made)
 			current_check_level_button.complete_star.visible = true
 			current_check_level_button.get_child(1).text = var_to_str(level["deliveries_made"])
-			level_buttons[level_check_index+1].visible = true
+			if level_check_index+1 < level_buttons.size():
+				level_buttons[level_check_index+1].visible = true
+				level_buttons[level_check_index+1].grab_focus()
+				back_button.focus_neighbor_left = NodePath(level_buttons[level_check_index].get_path())
 		elif testing:
 			level_buttons[level_check_index].visible = true
 		else:
+			level_buttons[level_check_index].grab_focus()
+			back_button.focus_neighbor_left = NodePath(level_buttons[level_check_index].get_path())
 			break
 		level_check_index+=1
 

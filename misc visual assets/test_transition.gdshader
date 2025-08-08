@@ -1,45 +1,57 @@
 shader_type canvas_item;
 
-// simulate the ShaderToy uniforms
-uniform float time:hint_range(0.0, 3.0);             // driven by GDScript
-uniform vec2 screen_size;       // set to viewport size
+// Drive with time OR progress (use one or both)
+uniform float time;                 // animate per-frame (seconds)
+uniform float progress : hint_range(0.0, 1.0) = 0.0; // tween this if you prefer
 
-// parameters you can tweak
+// Viewport size (set from GDScript at _ready and on resize)
+uniform vec2 screen_size;
+
+// Pattern params
 uniform float pixel_size = 4.0;
 uniform int offset = 3;
 uniform int circle_size = 10;
 
 void fragment() {
-    // convert UV to pixel space
-    vec2 fragCoord = UV * screen_size;
-    vec4 col = vec4(0.0,0.0,0.0,1.0);
+    // Sample the sprite's texture first
+    vec4 base = texture(TEXTURE, UV);
+    if (base.a == 0.0) {
+        // Skip work for fully transparent texels
+        COLOR = base;
+        //return;
+    }
 
-    // pixel coordinate
+    // Convert to pixel space for the pattern
+    vec2 fragCoord = UV * screen_size;
+
     vec2 n = floor(fragCoord / pixel_size);
     vec2 p = n * pixel_size;
 
-    // y modifier group
     int ym = int(n.x) / circle_size;
-
-    // calculate circle grid position
     int x = int(n.x) % circle_size;
     int y = (int(n.y) + (ym * offset)) % circle_size;
 
     vec2 centered = vec2(float(x), float(y)) - vec2(float(circle_size) / 2.0);
-
-    // distance from center of the circle
     float d = distance(centered, vec2(0.0));
 
-    // animated threshold
-    float threshold = (1.0 + cos(time)) - p.x / screen_size.x;
+    // Threshold can be driven by time (wavy) and/or linear progress
+    float time_term = 1.0 + cos(time); // optional: remove if only using progress
+    float sweep_term = 1.0 - (p.x / screen_size.x);
+
+    // Combine terms: larger threshold = more pixels get removed
+    float threshold = (time_term - sweep_term);
+
+    // Allow progress to force the fade regardless of time:
+    // progress 0 -> no removal; 1 -> full removal (scaled to circle_size)
+    threshold += progress * 2.0; // tweak if you want faster/slower progress
+
     threshold *= float(circle_size);
 
-    // draw white or black based on the threshold
-    if (d > threshold) {
-        col = vec4(0.0,0.0,0.0,1.0);
-    } else {
-        col = vec4(0.0);
-    }
+    // mask = 1.0 where we want to remove the sprite (make transparent)
+    float mask = d > threshold ? 1.0 : 0.0;
 
-    COLOR = col;
+    // Punch holes by reducing alpha (don’t darken RGB)
+    base.a *= (1.0 - mask);
+
+    COLOR = base;
 }

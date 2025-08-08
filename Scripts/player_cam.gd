@@ -60,9 +60,10 @@ func setup_level_summary():
 	var final_score = (game_manager.deliveries_made * 30)-((game_manager.level_splatters*5)+(game_manager.unhappy_customers * 15))
 	game_manager.level_score = final_score
 	ui_final_score.text = var_to_str(final_score)
-		
+	$level_summary_background/Button.grab_focus()
 
 
 func _on_button_button_down():
+	game_manager.play_sfx(game_manager.button_select)
 	game_manager.finish_level_scene(get_parent())
 	

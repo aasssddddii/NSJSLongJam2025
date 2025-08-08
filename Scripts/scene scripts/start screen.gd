@@ -14,6 +14,8 @@ var game_manager = GameManager
 @onready var music_slider = $"Options_menu/HBoxContainer/rightcontainer/musicslidercontainer/music slider"
 @onready var overtime_display = $OvertimeStarDisplay
 #@onready var sfx_generator = $SFX_Generator
+@onready var start_button = $options/Start
+@onready var ui_colorblind_button = $Options_menu/HBoxContainer/rightcontainer/ui_colorblind
 
 @onready var main_menu = $options
 @onready var title_label = $Title
@@ -25,6 +27,7 @@ func _ready():
 	overtime_display.visible = game_manager.level_5_complete
 	options_menu.visible = false
 	SFX_slider.value = game_manager.sfx_volume 
+	start_button.call_deferred("grab_focus")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -55,6 +58,7 @@ func display_options():
 		title_label.visible = !options_displayed
 		if game_manager.level_5_complete:
 			overtime_display.visible = !options_displayed
+		ui_colorblind_button.grab_focus()
 
 
 
@@ -79,6 +83,8 @@ func _on_options_quit_button_down():
 		options_menu.visible = options_displayed
 		main_menu.visible = !options_displayed
 		title_label.visible = !options_displayed
+		
+	start_button.grab_focus()
 
 
 func toggle_colorblind():
@@ -151,3 +157,7 @@ func show_slider(slider_on:bool):
 
 
 
+
+
+func _on_video_stream_player_finished():
+	$VideoStreamPlayer.play()

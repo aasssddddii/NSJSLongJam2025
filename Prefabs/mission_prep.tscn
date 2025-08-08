@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4env6us4rr5"]
+[gd_scene load_steps=5 format=3 uid="uid://c4env6us4rr5"]
 
 [ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="1_lkidt"]
 [ext_resource type="Texture2D" uid="uid://cg6lcsqcax324" path="res://Sprites/large window background.png" id="1_y43rl"]
 [ext_resource type="Script" path="res://Scripts/mission_prep.gd" id="2_ieeml"]
+[ext_resource type="StyleBox" uid="uid://c6h4nvnui5w0l" path="res://misc visual assets/button_hover stylebox.tres" id="4_lkv4p"]
 
 [node name="Mission Prep" type="Sprite2D"]
 z_index = 1
@@ -17,8 +18,8 @@ offset_bottom = -164.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("1_lkidt")
-theme_override_font_sizes/font_size = 35
-text = "Today's Route"
+theme_override_font_sizes/font_size = 34
+text = "_'s Route"
 horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="."]
@@ -26,12 +27,12 @@ offset_left = -15.0
 offset_top = 144.0
 offset_right = 49.0
 offset_bottom = 183.0
-focus_mode = 0
 theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_lkidt")
 theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = ExtResource("4_lkv4p")
 text = "OK"
 flat = true
 

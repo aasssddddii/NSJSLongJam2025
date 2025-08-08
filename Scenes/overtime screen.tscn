@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bj42sqboi3o5t"]
+[gd_scene load_steps=5 format=3 uid="uid://bj42sqboi3o5t"]
 
 [ext_resource type="Script" path="res://Scripts/scene scripts/overtime screen.gd" id="1_b5bne"]
 [ext_resource type="Texture2D" uid="uid://cg6lcsqcax324" path="res://Sprites/large window background.png" id="2_5sek2"]
 [ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="3_ngm0l"]
+[ext_resource type="StyleBox" uid="uid://c6h4nvnui5w0l" path="res://misc visual assets/button_hover stylebox.tres" id="4_bvbwk"]
 
 [node name="overtime screen" type="Node2D"]
 script = ExtResource("1_b5bne")
@@ -12,6 +13,7 @@ offset_left = -3.0
 offset_top = -2.0
 offset_right = 1158.0
 offset_bottom = 656.0
+color = Color(0.784314, 0.709804, 1, 1)
 
 [node name="background" type="Sprite2D" parent="."]
 position = Vector2(569, 324)
@@ -36,6 +38,7 @@ offset_left = 290.0
 offset_top = 172.0
 offset_right = 857.0
 offset_bottom = 581.0
+follow_focus = true
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
 layout_mode = 2
@@ -55,7 +58,7 @@ theme_override_fonts/font = ExtResource("3_ngm0l")
 theme_override_font_sizes/font_size = 28
 text = "Apprentice,
 
-I regret to inform you that Potion Slangers™ is once again in trouble. Our so-called friendly rival, HexEx™ has launched a late-night service that is taking over our market. We need to win over our customers back with perfect deliveies, if you are up for a little overtime I could use your help again."
+I regret to inform you that Potion Slangers is once again in trouble. Our so-called friendly rival, HexEx has launched a late-night service that is taking over our market. We need to win over our customers back with perfect deliveies, if you are up for a little overtime I could use your help again."
 autowrap_mode = 3
 
 [node name="title4" type="Label" parent="ScrollContainer/MarginContainer/Container"]
@@ -71,12 +74,13 @@ autowrap_mode = 3
 
 [node name="done" type="Button" parent="ScrollContainer/MarginContainer/Container"]
 layout_mode = 2
-focus_mode = 0
+focus_mode = 1
 theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("3_ngm0l")
 theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = ExtResource("4_bvbwk")
 text = "next"
 flat = true
 

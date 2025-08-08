@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bnyl8fig8gt8g"]
+
+[ext_resource type="Shader" path="res://misc visual assets/test_transition.gdshader" id="1_cnefd"]
+
+[resource]
+shader = ExtResource("1_cnefd")
+shader_parameter/time = 3.0
+shader_parameter/progress = 0.0
+shader_parameter/screen_size = Vector2(1162, 658)
+shader_parameter/pixel_size = 4.0
+shader_parameter/offset = 3
+shader_parameter/circle_size = 10
