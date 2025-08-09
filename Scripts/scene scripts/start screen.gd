@@ -91,12 +91,13 @@ func _on_options_quit_button_down():
 
 
 func toggle_colorblind():
-	game_manager.color_blind_mode = !game_manager.color_blind_mode
-	if game_manager.color_blind_mode:
+	game_manager.highscore_lib.colorblind_mode = !game_manager.highscore_lib.colorblind_mode
+	if game_manager.highscore_lib.colorblind_mode:
 		ui_colorblind.text = "ON"
 	else:
 		ui_colorblind.text = "OFF"
 	#send to highscoure resource
+	#game_manager.highscore_lib.colorblind_mode = 
 	game_manager.save_game()
 	
 	
@@ -124,6 +125,8 @@ func cycle_fullscreen():
 			fullscreen_text = "Borderless"
 	ui_fullscreen.text = fullscreen_text
 	
+	game_manager.highscore_lib.fullscreen = full_screen_index
+	game_manager.highscore_lib.values_set = true
 	#send to highscoure resource
 	game_manager.save_game()
 
@@ -161,17 +164,10 @@ func show_slider(slider_on:bool):
 
 func setup_options():
 	var colorblind_text
-	if !game_manager.highscore_lib.values_set:
-		#get defaults
-		if game_manager.highscore_lib.colorblind_mode:
-			colorblind_text = "ON"
-		else:
-			colorblind_text = "OFF"
-		
-
+	if game_manager.highscore_lib.colorblind_mode:
+		colorblind_text = "ON"
 	else:
-		#get gamemanager menu settings
-		pass
+		colorblind_text = "OFF"
 	#set values
 	ui_colorblind_button.text = colorblind_text
 	
@@ -179,9 +175,10 @@ func setup_options():
 		0:
 			ui_fullscreen.text = "Windowed"
 		1:
-			ui_fullscreen.text = "FullScreen"
+			ui_fullscreen.text = "Fullscreen"
 		2:
 			ui_fullscreen.text = "Borderless"
+	full_screen_index = game_manager.highscore_lib.fullscreen
 	if game_manager.highscore_lib.game_muted:
 		ui_mute.text = "ON"
 		show_slider(false)

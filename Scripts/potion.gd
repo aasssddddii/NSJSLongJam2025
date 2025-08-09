@@ -36,7 +36,7 @@ func setup_thrown_potion(input_type:GameManager.PotionType):
 			final_modulate = Color.BLACK
 			
 	potion_sprite.modulate = final_modulate
-	if game_manager.color_blind_mode:
+	if game_manager.highscore_lib.colorblind_mode:
 		setup_colorblind()
 	else:
 		colorblind_label.text = ""

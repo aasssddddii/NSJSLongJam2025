@@ -14,7 +14,7 @@ enum PotionType {
 	PURPLE,
 	BLACK
 }
-@onready var highscore_lib:Resource = preload("res://Resources/Highscore_library.tres")
+@onready var highscore_lib:Resource# = preload("res://Resources/Highscore_library.tres")
 @onready var potion_prefab = preload("res://Prefabs/potion.tscn")
 @onready var splatter_prefab = preload("res://Prefabs/splatter.tscn")
 @onready var start_screen = preload("res://Scenes/start screen.tscn")
@@ -53,7 +53,7 @@ var unhappy_customers:int
 var level_score:int
 
 
-var color_blind_mode:bool #= true
+#var color_blind_mode:bool #= true
 
 var ui_jukebox= AudioStreamPlayer2D.new()
 var ui_sfx_generator = AudioStreamPlayer2D.new()
@@ -78,9 +78,9 @@ func _ready():
 	ui_jukebox.bus = "Music"
 	ui_sfx_generator.bus = "SFX"
 	
-	get_saved_settings()
-	#change to check for file when game saving
-	setup_settings()
+	if !get_saved_settings():
+		#change to check for file when game saving
+		setup_settings()
 	
 	transitioner = transitioner_prefab.instantiate()
 	get_tree().root.add_child.call_deferred(transitioner)
@@ -184,9 +184,13 @@ func change_scene(from_scene,to_scene):
 		if to_scene == level_select_screen && !highscore_lib.shown_intro_scene:
 			next_scene = intro_scene.instantiate()
 			highscore_lib.shown_intro_scene = true
+			highscore_lib.values_set = true
+			save_game()
 		if to_scene == level_select_screen && !highscore_lib.shown_overtime_intro_scene && highscore_lib.shown_intro_scene && highscore_lib.level_5_complete:
 			next_scene = overtime_start_scene.instantiate()
 			highscore_lib.shown_overtime_intro_scene = true
+			highscore_lib.values_set = true
+			save_game()
 		get_tree().root.add_child.call_deferred(next_scene)
 		if to_scene == potion_boy_scene:
 			play_music(game_music)
@@ -234,6 +238,7 @@ func finish_level_scene(level_node):
 		if !highscore_lib.shown_end_credits:
 			print("Showing Game Over Win screen")
 			highscore_lib.level_5_complete = true
+			save_game()
 			change_scene(level_node,game_over_screen)
 			level_reset()
 		else:
@@ -256,6 +261,7 @@ func finish_level_scene(level_node):
 		change_scene(level_node,level_select_screen)
 		#reset restters
 		level_reset()
+	save_game()
 
 
 func finish_endless_scene(level_node):
@@ -301,12 +307,16 @@ func mute_audio():
 	ui_jukebox.stop()
 	ui_sfx_generator.volume_db = -80
 	ui_jukebox.volume_db = -80
+	highscore_lib.game_muted = true
+	highscore_lib.values_set = true
 	#send to highscoure resource
 	save_game()
 	
 func unmute_audio():
 	ui_sfx_generator.volume_db = 0
 	ui_jukebox.volume_db = 0
+	highscore_lib.game_muted = false
+	highscore_lib.values_set = true
 	#send to highscoure resource
 	save_game()
 
@@ -333,7 +343,6 @@ func unpause_game():
 	
 
 func setup_settings():
-	color_blind_mode = highscore_lib.colorblind_mode
 	match highscore_lib.fullscreen:
 		0:#windowed
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
@@ -344,12 +353,14 @@ func setup_settings():
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
 	highscore_lib.game_muted = highscore_lib.game_muted
+	
 	if highscore_lib.game_muted:
 		mute_audio()
 	else:
 		unmute_audio()
 	ui_jukebox.volume_db = highscore_lib.music_volume
 	ui_sfx_generator.volume_db = highscore_lib.sfx_volume
+	highscore_lib.values_set = true
 	
 func change_volume(bus:int,amount:int):
 	print("CHANGING VOLUME BUS:", bus, " TO: ", amount)
@@ -360,6 +371,7 @@ func change_volume(bus:int,amount:int):
 		2:
 			highscore_lib.music_volume = amount
 			
+	highscore_lib.values_set = true
 	save_game()
 	
 func save_game():
@@ -374,6 +386,10 @@ func get_saved_settings():
 	var loaded_highscores = ResourceLoader.load(save_path)
 	if loaded_highscores:
 		highscore_lib = loaded_highscores
-		print("options set: ", highscore_lib.values_set)
+		print("sanity check values set: ", highscore_lib.values_set)
+		return true
 	else:
 		print("Error loading resource or file not found.")
+		highscore_lib = preload("res://Resources/Highscore_library.tres")
+		return false
+		

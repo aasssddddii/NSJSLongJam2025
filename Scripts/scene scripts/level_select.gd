@@ -37,13 +37,15 @@ func show_unlocked_levels():
 	var level_buttons = [ui_level_1,ui_level_2,ui_level_3,ui_level_4,ui_level_5,ui_level_6,ui_level_7]
 	print("checking for completed levels")
 	var level_check_index:int
-	for level in game_manager.highscore_lib.levels:
-		back_button.focus_neighbor_left = NodePath(ui_level_1.get_path())
+	back_button.focus_neighbor_left = NodePath(ui_level_1.get_path())
+	for level_number in [1,2,3,4,5,6,7]:
 		var current_check_level_button = level_buttons[level_check_index]
-		if level["completed"]:
+		print("checking level ",game_manager.highscore_lib.get_level_data(level_number))
+		var level_ref = game_manager.highscore_lib.get_level_data(level_number)
+		if level_ref["completed"]:
 			current_check_level_button.ui_deliveries_node.text = var_to_str(game_manager.deliveries_made)
 			current_check_level_button.complete_star.visible = true
-			current_check_level_button.get_child(1).text = var_to_str(level["deliveries_made"])
+			current_check_level_button.get_child(1).text = var_to_str(level_ref["deliveries_made"])
 			if level_check_index+1 < level_buttons.size():
 				level_buttons[level_check_index+1].visible = true
 				level_buttons[level_check_index+1].grab_focus()
@@ -51,7 +53,7 @@ func show_unlocked_levels():
 #		elif testing:
 #			level_buttons[level_check_index].visible = true
 		else:
-			current_check_level_button.get_child(1).text = var_to_str(level["deliveries_made"])
+			current_check_level_button.get_child(1).text = var_to_str(level_ref["deliveries_made"])
 			level_buttons[level_check_index].grab_focus()
 			back_button.focus_neighbor_left = NodePath(level_buttons[level_check_index].get_path())
 			break

@@ -46,7 +46,7 @@ func show_infinity():
 		infinity_decal.visible = false  
 func show_colorblind_label():
 	colorblind_label = $Label
-	colorblind_label.visible = game_manager.color_blind_mode
+	colorblind_label.visible = game_manager.highscore_lib.colorblind_mode
 	var colorblind_text:String = ""
 	match potion_type:
 		GameManager.PotionType.RED:

@@ -17,7 +17,7 @@ func _ready():
 
 func show_win_splash():
 	game_win_message = $level5_win_message
-	game_manager.shown_end_credits = true
+	game_manager.highscore_lib.shown_end_credits = true
 	game_win_message.visible = true
 	#$ScrollContainer.grab_focus()
 	

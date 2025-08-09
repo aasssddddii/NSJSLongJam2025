@@ -107,7 +107,7 @@ flat = true
 
 [node name="OvertimeStarDisplay" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(441, 368)
+position = Vector2(441, 324)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("3_f270i")
 

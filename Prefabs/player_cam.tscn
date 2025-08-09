@@ -46,7 +46,6 @@ size = Vector2(55, 4297)
 position = Vector2(0, 330)
 ignore_rotation = false
 script = ExtResource("1_2cly1")
-testing = true
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 position = Vector2(1, -1)
