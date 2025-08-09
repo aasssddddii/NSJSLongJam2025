@@ -1,5 +1,6 @@
 extends CharacterBody2D
-const SPEED = 300.0
+const SPEED = 110.0
+const reverse_Speed:int = 200.0
 
 var game_manager = GameManager
 var player_in_control:bool = true
@@ -43,11 +44,17 @@ func _ready():
 func _physics_process(delta):
 	if player_in_control:
 		var direction = Input.get_vector("button_down","button_up","button_left", "button_right")
-		#print("direction vector:", direction)
+		print("direction vector:", direction)
 		if direction:
-			velocity = direction * SPEED
+			if velocity.x > 0:
+				velocity = direction * SPEED
+			else:
+				velocity = direction * reverse_Speed
 		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
+			if velocity.x > 0:
+				velocity.x = move_toward(velocity.x, 0, SPEED)
+			else:
+				velocity.x = move_toward(velocity.x, 0, reverse_Speed)
 			velocity.y = move_toward(velocity.y, 0, SPEED)
 		move_and_slide()
 		ui_score.text = var_to_str(game_manager.deliveries_made)
@@ -96,8 +103,8 @@ func _input(event):
 			if selected_potion_index == -1 && selected_potion_type != GameManager.PotionType.NONE && infinite_types.find(selected_potion_type) == -1 && potion_inventory.size() <5:
 				getset_potion_inventory("add",selected_potion_type)
 				empty_mixer()
-		if event.is_action_pressed("button_pause"):
-			game_manager.pause_game()
+		#if event.is_action_pressed("button_pause"):
+			#game_manager.pause_game()
 		
 		
 		

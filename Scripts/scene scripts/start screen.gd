@@ -17,6 +17,8 @@ var game_manager = GameManager
 @onready var start_button = $options/Start
 @onready var ui_colorblind_button = $Options_menu/HBoxContainer/rightcontainer/ui_colorblind
 
+@onready var endless_prep = $"Endless Prep"
+
 @onready var main_menu = $options
 @onready var title_label = $Title
 var full_screen_index:int 
@@ -49,8 +51,9 @@ func _on_options_button_down():
 	display_options()
 func _on_endless_button_down():
 	game_manager.endless_mode = true
+	endless_prep.setup_prep(game_manager.prep_lib.endless_prep_data)
 	game_manager.play_sfx(game_manager.button_select)
-	game_manager.change_scene(self, game_manager.endless_mode_prefab)
+	#game_manager.change_scene(self, game_manager.endless_mode_prefab)
 
 
 
@@ -88,7 +91,6 @@ func _on_options_quit_button_down():
 		main_menu.visible = !options_displayed
 		title_label.visible = !options_displayed
 	start_button.grab_focus()
-
 
 func toggle_colorblind():
 	game_manager.highscore_lib.colorblind_mode = !game_manager.highscore_lib.colorblind_mode
@@ -194,7 +196,8 @@ func setup_options():
 
 
 
-
+func reset_focus():
+	start_button.grab_focus()
 
 
 

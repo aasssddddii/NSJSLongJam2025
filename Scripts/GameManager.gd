@@ -77,6 +77,9 @@ func _ready():
 	add_child(ui_sfx_generator)
 	ui_jukebox.bus = "Music"
 	ui_sfx_generator.bus = "SFX"
+	#set proccessing mode for audio streams
+	ui_jukebox.process_mode = Node.PROCESS_MODE_ALWAYS
+	ui_sfx_generator.process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	if !get_saved_settings():
 		#change to check for file when game saving
@@ -90,6 +93,8 @@ func _input(event):
 	if event.is_action_pressed("button_pause"):
 		if get_tree().paused && unpausable:
 			unpause_game()
+		else:
+			pause_game()
 
 func pickup_player_audio(parent:Node2D):
 	ui_jukebox.reparent(parent)
@@ -103,7 +108,7 @@ func return_player_audio():
 	
 	
 func endless_check():
-	if unhappy_customers >= 3:
+	if unhappy_customers >= 3 && endless_mode:
 		print("endless over")
 		endless_over.emit()
 		
@@ -340,6 +345,7 @@ func pause_game():
 func unpause_game():
 	get_tree().paused = false
 	unpausable = false
+	#ui_jukebox.stream_paused = false
 	
 
 func setup_settings():

@@ -16,6 +16,7 @@ var ui_level_7
 @onready var back_button = $back
 @onready var mission_prep_window = $"Mission Prep"
 var button_clicked:bool
+var last_level_node
 func _ready():
 	#setup completion visuals
 
@@ -50,11 +51,13 @@ func show_unlocked_levels():
 				level_buttons[level_check_index+1].visible = true
 				level_buttons[level_check_index+1].grab_focus()
 				back_button.focus_neighbor_left = NodePath(level_buttons[level_check_index].get_path())
+				last_level_node = level_buttons[level_check_index+1]
 #		elif testing:
 #			level_buttons[level_check_index].visible = true
 		else:
 			current_check_level_button.get_child(1).text = var_to_str(level_ref["deliveries_made"])
 			level_buttons[level_check_index].grab_focus()
+			last_level_node = level_buttons[level_check_index]
 			back_button.focus_neighbor_left = NodePath(level_buttons[level_check_index].get_path())
 			break
 		level_check_index+=1
@@ -96,14 +99,16 @@ func _on_ui_sunday_button_down():
 	start_prep_window(game_manager.game_level)
 
 func start_prep_window(level:int):
-	hide_level_select()
+	show_level_select(false)
 	mission_prep_window.setup_prep(game_manager.prep_lib.get_level_prep(level))#Prep data from library
 
 func start_potion_boy(level:int):
 	game_manager.game_level = level
 	game_manager.change_scene(self,game_manager.potion_boy_scene)
 
-func hide_level_select():
-	title.visible = false
-	levels_grid.visible = false
-	back_button.visible = false
+func show_level_select(choice:bool):
+	title.visible = choice
+	levels_grid.visible = choice
+	back_button.visible = choice
+	if choice:
+		last_level_node.grab_focus()

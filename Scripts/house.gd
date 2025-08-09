@@ -35,7 +35,7 @@ var house_type:String
 func _ready():
 	ui_result.visible = false
 	#set house type
-	print("house type = ", house_type)
+	#print("house type = ", house_type)
 	#set potion requirements
 	if !game_manager.endless_mode:
 		potion_requirements = game_manager.get_new_potion_request(game_manager.game_level)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cykqnw6hdxfqt"]
+[gd_scene load_steps=12 format=3 uid="uid://cykqnw6hdxfqt"]
 
 [ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="1_2m0kd"]
 [ext_resource type="Script" uid="uid://dh5wx28m6gkxs" path="res://Scripts/scene scripts/start screen.gd" id="1_4lbs4"]
@@ -9,6 +9,7 @@
 [ext_resource type="StyleBox" uid="uid://qtxaaa7w4ka2" path="res://misc visual assets/grabber area.tres" id="6_wopkx"]
 [ext_resource type="VideoStream" uid="uid://cmubwpix2xafm" path="res://Videos/potionboyintro video.ogv" id="7_a0rpm"]
 [ext_resource type="Texture2D" uid="uid://d3ffte0hkv2ls" path="res://Sprites/potion_grabber highlight.png" id="8_dqblg"]
+[ext_resource type="PackedScene" uid="uid://c4env6us4rr5" path="res://Prefabs/mission_prep.tscn" id="10_q17xo"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_6a1o0"]
 grow_begin = -14.0
@@ -45,9 +46,9 @@ text = "POTION BOY"
 
 [node name="options" type="VBoxContainer" parent="."]
 offset_left = 125.0
-offset_top = 346.0
-offset_right = 321.0
-offset_bottom = 641.0
+offset_top = 262.0
+offset_right = 329.0
+offset_bottom = 557.0
 theme_override_constants/separation = 25
 
 [node name="Start" type="Button" parent="options"]
@@ -107,7 +108,7 @@ flat = true
 
 [node name="OvertimeStarDisplay" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(441, 324)
+position = Vector2(432, 232)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("3_f270i")
 
@@ -318,6 +319,10 @@ theme_override_styles/focus = ExtResource("4_7h2vt")
 text = "Back"
 flat = true
 alignment = 2
+
+[node name="Endless Prep" parent="." instance=ExtResource("10_q17xo")]
+visible = false
+position = Vector2(564, 324)
 
 [connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
 [connection signal="button_down" from="options/Start" to="." method="_on_start_button_down"]

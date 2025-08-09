@@ -4,10 +4,10 @@ var game_manager = GameManager
 
 
 
-const regular_speed = Vector2(1,0)
-const max_speed = Vector2(2.2,0)#Testing
-const acceleration = Vector2(.01,0)#Testing
-const deceleration = Vector2(.024,0)
+const regular_speed = Vector2(1.2,0)
+const max_speed = Vector2(3,0)#Testing
+const acceleration = Vector2(.1,0)#Testing
+const deceleration = Vector2(.04,0)
 const cam_speed = 100
 @export var testing:bool
 
@@ -31,6 +31,8 @@ func _process(delta):
 		scroll_speed -= deceleration
 	position += scroll_speed
 	
+	
+	
 		
 
 func _input(event):
@@ -39,6 +41,8 @@ func _input(event):
 		speed_up = true
 	if event.is_action_pressed("button_down"):
 		#slow down
+		speed_up = false
+	elif event.is_action_released("button_up"):
 		speed_up = false
 	if testing:
 		if event.is_action_pressed("debug_scroll_up"):

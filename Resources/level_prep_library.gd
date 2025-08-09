@@ -14,7 +14,7 @@ var level_2_prep_data:Dictionary = {
 	"day":"Tuesday",
 	"clients":6,
 	"required":3,#endgame testing
-	"notes":["if it’s bubbling, it’s working", "aim for the door, not the window", "always shake before throwing","more deliveries, fewer lawsuits that’s the goal","mix fast, throw faster"]
+	"notes":["if it is bubbling, it is working", "aim for the door, not the window", "always shake before throwing","more deliveries, fewer lawsuits that is the goal","mix fast, throw faster"]
 }
 var level_3_prep_data:Dictionary = {
 	"street_name":"Coventry Ct.",
@@ -28,7 +28,7 @@ var level_4_prep_data:Dictionary = {
 	"day":"Thursday",
 	"clients":6,
 	"required":4,#endgame testing
-	"notes":["Don’t trust the witches", "I gave that witch a potion, witches love potions", "black cats make terrible mailboxes","the cauldron says you're late", "bubble bubble, throw me double"]
+	"notes":["Do not trust the witches", "I gave that witch a potion, witches love potions", "black cats make terrible mailboxes","the cauldron says you are late", "bubble bubble, throw me double"]
 }
 var level_5_prep_data:Dictionary = {
 	"street_name":"Albedo Aly.",
@@ -42,7 +42,7 @@ var level_6_prep_data:Dictionary = {
 	"day":"Saturday",
 	"clients":6,
 	"required":6,
-	"notes":["no refunds, EVER!!", "by royal decree, aim better this time", "the king's hay fever isn’t fixing itself", "the king needs potions you must deliver"]
+	"notes":["no refunds, EVER!!", "by royal decree, aim better this time", "the king needs potions you must deliver"]
 }
 var level_7_prep_data:Dictionary = {
 	"street_name":"Perfect Pl.",
@@ -50,6 +50,13 @@ var level_7_prep_data:Dictionary = {
 	"clients":6,
 	"required":6,
 	"notes":["delivered with style", "sir Mixalot rides again", "the king said he wanted results — not fire", "always label your potions"]
+}
+var endless_prep_data:Dictionary = {
+	"street_name":["Toadstool Ter.","Crystal Ct.","Potionpost Pk.","Spellcaster St.","Brewster Ln.","Potion Pkwy.","Herb Grv.","Witchhazel Rd.","Frogspawn Ct.","Froggy Ct.","Flask Ct.","Glow Rd.","Moonlit Ln."],
+	"day":"Endless Mode",
+	"clients":0,
+	"required":0,
+	"notes":["hope you brought snacks, this shift does not end","sleep is for quitters", "no lunch breaks, no quitting, just potions", "always label your potions","you have unlocked infinite job security","your shift ends when the kingdom runs out of houses","rumor is the street loops forever, good luck"]
 }
 
 var all_level_prep = [level_1_prep_data,level_2_prep_data,level_3_prep_data,level_4_prep_data,level_5_prep_data,level_6_prep_data,level_7_prep_data]
