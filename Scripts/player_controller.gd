@@ -249,6 +249,3 @@ func animate_player_throw():
 	player_sprite.texture = load("res://Sprites/player_bag.png")
 	await get_tree().create_timer(throw_cooldown).timeout
 	can_throw = true
-
-
-

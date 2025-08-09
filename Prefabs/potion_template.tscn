@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://7y4gdhsi7d20"]
 
 [ext_resource type="Texture2D" uid="uid://dvbvtlil3pxkt" path="res://Sprites/potion.png" id="1_3ty50"]
-[ext_resource type="Script" path="res://Scripts/potion_selection_template.gd" id="2_b5j5j"]
+[ext_resource type="Script" uid="uid://ct77oasvi46xx" path="res://Scripts/potion_selection_template.gd" id="2_b5j5j"]
 [ext_resource type="Texture2D" uid="uid://bk24gava7iftc" path="res://Sprites/infinity.png" id="3_npugs"]
 [ext_resource type="Theme" uid="uid://dch24fhxplenv" path="res://Fonts/potion_template.tres" id="4_qqd8c"]
 

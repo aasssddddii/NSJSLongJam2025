@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://pv416rf47brd"]
 
-[ext_resource type="Script" path="res://Scripts/scene scripts/potion boy test.gd" id="1_n12yy"]
+[ext_resource type="Script" uid="uid://douqotkrok32g" path="res://Scripts/scene scripts/potion boy test.gd" id="1_n12yy"]
 [ext_resource type="Texture2D" uid="uid://s2i2ina4sud1" path="res://Sprites/grass_tileset_16x16.png" id="2_1dv0i"]
 [ext_resource type="Texture2D" uid="uid://2vohvcsfu7kx" path="res://Sprites/road.png" id="3_kwcpt"]
 

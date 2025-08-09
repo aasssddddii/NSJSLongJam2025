@@ -14,6 +14,7 @@ enum PotionType {
 	PURPLE,
 	BLACK
 }
+@onready var highscore_lib:Resource = preload("res://Resources/Highscore_library.tres")
 @onready var potion_prefab = preload("res://Prefabs/potion.tscn")
 @onready var splatter_prefab = preload("res://Prefabs/splatter.tscn")
 @onready var start_screen = preload("res://Scenes/start screen.tscn")
@@ -31,7 +32,7 @@ enum PotionType {
 var requestable_potions:Array[PotionType] = [PotionType.BLUE,PotionType.RED,PotionType.YELLOW,PotionType.GREEN,PotionType.ORANGE,PotionType.PURPLE,PotionType.BLACK]
 var splatter_textures:Array[String] = ["res://Sprites/splatter1.png","res://Sprites/splatter2.png","res://Sprites/splatter3.png"]
 var rng = RandomNumberGenerator.new()
-
+var save_path = "res://Saves/Highscores.tres"
 
 
 
@@ -40,7 +41,7 @@ var rng = RandomNumberGenerator.new()
 #var shown_end_credits:bool#needs to be exported to level highscore for ease of saving
 var show_end_splash:bool
 
-var level_5_complete:bool
+#var level_5_complete:bool
 #var shown_intro_scene:bool#needs to be exported to level highscore for ease of saving
 #var shown_overtime_intro_scene:bool#needs to be exported to level highscore for ease of saving
 
@@ -51,7 +52,6 @@ var level_splatters:int
 var unhappy_customers:int
 var level_score:int
 
-@onready var highscore_lib:Resource = preload("res://Resources/Highscore_library.tres")
 
 var color_blind_mode:bool #= true
 
@@ -78,8 +78,9 @@ func _ready():
 	ui_jukebox.bus = "Music"
 	ui_sfx_generator.bus = "SFX"
 	
+	get_saved_settings()
 	#change to check for file when game saving
-	setup_settings(highscore_lib.menu_defaults)
+	setup_settings()
 	
 	transitioner = transitioner_prefab.instantiate()
 	get_tree().root.add_child.call_deferred(transitioner)
@@ -183,7 +184,7 @@ func change_scene(from_scene,to_scene):
 		if to_scene == level_select_screen && !highscore_lib.shown_intro_scene:
 			next_scene = intro_scene.instantiate()
 			highscore_lib.shown_intro_scene = true
-		if to_scene == level_select_screen && !highscore_lib.shown_overtime_intro_scene && highscore_lib.shown_intro_scene && level_5_complete:
+		if to_scene == level_select_screen && !highscore_lib.shown_overtime_intro_scene && highscore_lib.shown_intro_scene && highscore_lib.level_5_complete:
 			next_scene = overtime_start_scene.instantiate()
 			highscore_lib.shown_overtime_intro_scene = true
 		get_tree().root.add_child.call_deferred(next_scene)
@@ -232,7 +233,7 @@ func finish_level_scene(level_node):
 	if requirment_meet && game_level == 5:
 		if !highscore_lib.shown_end_credits:
 			print("Showing Game Over Win screen")
-			level_5_complete = true
+			highscore_lib.level_5_complete = true
 			change_scene(level_node,game_over_screen)
 			level_reset()
 		else:
@@ -300,10 +301,14 @@ func mute_audio():
 	ui_jukebox.stop()
 	ui_sfx_generator.volume_db = -80
 	ui_jukebox.volume_db = -80
+	#send to highscoure resource
+	save_game()
 	
 func unmute_audio():
 	ui_sfx_generator.volume_db = 0
 	ui_jukebox.volume_db = 0
+	#send to highscoure resource
+	save_game()
 
 func transistion_to_scene():
 	var animator:AnimationPlayer = transitioner.animator
@@ -325,10 +330,11 @@ func pause_game():
 func unpause_game():
 	get_tree().paused = false
 	unpausable = false
+	
 
-func setup_settings(settings_data:Dictionary):
-	color_blind_mode = settings_data["colorblind"]
-	match settings_data["fullscreen"]:
+func setup_settings():
+	color_blind_mode = highscore_lib.colorblind_mode
+	match highscore_lib.fullscreen:
 		0:#windowed
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
@@ -337,7 +343,7 @@ func setup_settings(settings_data:Dictionary):
 		2:#borderless
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
-	highscore_lib.game_muted = settings_data["mute"]
+	highscore_lib.game_muted = highscore_lib.game_muted
 	if highscore_lib.game_muted:
 		mute_audio()
 	else:
@@ -345,9 +351,29 @@ func setup_settings(settings_data:Dictionary):
 	ui_jukebox.volume_db = highscore_lib.music_volume
 	ui_sfx_generator.volume_db = highscore_lib.sfx_volume
 	
+func change_volume(bus:int,amount:int):
+	print("CHANGING VOLUME BUS:", bus, " TO: ", amount)
+	AudioServer.set_bus_volume_db(bus,amount)
+	match  bus:
+		1:
+			highscore_lib.sfx_volume = amount
+		2:
+			highscore_lib.music_volume = amount
+			
+	save_game()
 	
 func save_game():
-	#var saver:Resource
-	pass
+	var error = ResourceSaver.save(highscore_lib, save_path)
+	if error != OK:
+		print("Error saving resource: ", error)
+		return error
+	else:
+		print("Resource saved successfully!")
+		return true
 func get_saved_settings():
-	pass
+	var loaded_highscores = ResourceLoader.load(save_path)
+	if loaded_highscores:
+		highscore_lib = loaded_highscores
+		print("options set: ", highscore_lib.values_set)
+	else:
+		print("Error loading resource or file not found.")

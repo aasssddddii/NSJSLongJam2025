@@ -1,13 +1,13 @@
 [gd_scene load_steps=11 format=3 uid="uid://cykqnw6hdxfqt"]
 
 [ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="1_2m0kd"]
-[ext_resource type="Script" path="res://Scripts/scene scripts/start screen.gd" id="1_4lbs4"]
+[ext_resource type="Script" uid="uid://dh5wx28m6gkxs" path="res://Scripts/scene scripts/start screen.gd" id="1_4lbs4"]
 [ext_resource type="Texture2D" uid="uid://dmunx21bkjwng" path="res://Sprites/overtime star display.png" id="3_f270i"]
 [ext_resource type="StyleBox" uid="uid://c6h4nvnui5w0l" path="res://misc visual assets/button_hover stylebox.tres" id="4_7h2vt"]
 [ext_resource type="Texture2D" uid="uid://cg6lcsqcax324" path="res://Sprites/large window background.png" id="4_n5gu7"]
 [ext_resource type="Texture2D" uid="uid://dauxom4nqv3dv" path="res://Sprites/potion_grabber.png" id="5_35mal"]
 [ext_resource type="StyleBox" uid="uid://qtxaaa7w4ka2" path="res://misc visual assets/grabber area.tres" id="6_wopkx"]
-[ext_resource type="VideoStream" path="res://Videos/potionboyintro video.ogv" id="7_a0rpm"]
+[ext_resource type="VideoStream" uid="uid://cmubwpix2xafm" path="res://Videos/potionboyintro video.ogv" id="7_a0rpm"]
 [ext_resource type="Texture2D" uid="uid://d3ffte0hkv2ls" path="res://Sprites/potion_grabber highlight.png" id="8_dqblg"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_6a1o0"]
@@ -52,8 +52,8 @@ theme_override_constants/separation = 25
 
 [node name="Start" type="Button" parent="options"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 30
@@ -63,8 +63,8 @@ flat = true
 
 [node name="Endless" type="Button" parent="options"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 30
@@ -74,8 +74,8 @@ flat = true
 
 [node name="options" type="Button" parent="options"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 30
@@ -85,8 +85,8 @@ flat = true
 
 [node name="credits" type="Button" parent="options"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 30
@@ -96,8 +96,8 @@ flat = true
 
 [node name="quit" type="Button" parent="options"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.168627, 0.164706, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.168627, 0.164706, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 30
@@ -151,14 +151,15 @@ alignment = 1
 
 [node name="leftcontainer" type="VBoxContainer" parent="Options_menu/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="colorblind label" type="Button" parent="Options_menu/HBoxContainer/leftcontainer"]
 layout_mode = 2
 focus_mode = 0
 mouse_filter = 2
 mouse_force_pass_scroll_events = false
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 25
@@ -171,8 +172,8 @@ layout_mode = 2
 focus_mode = 0
 mouse_filter = 2
 mouse_force_pass_scroll_events = false
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 25
@@ -185,8 +186,8 @@ layout_mode = 2
 focus_mode = 0
 mouse_filter = 2
 mouse_force_pass_scroll_events = false
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 25
@@ -199,8 +200,8 @@ layout_mode = 2
 focus_mode = 0
 mouse_filter = 2
 mouse_force_pass_scroll_events = false
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 25
@@ -214,8 +215,8 @@ layout_mode = 2
 focus_mode = 0
 mouse_filter = 2
 mouse_force_pass_scroll_events = false
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 25
@@ -226,11 +227,12 @@ alignment = 2
 
 [node name="rightcontainer" type="VBoxContainer" parent="Options_menu/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="ui_colorblind" type="Button" parent="Options_menu/HBoxContainer/rightcontainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 25
@@ -241,8 +243,8 @@ alignment = 0
 
 [node name="ui_fullscreen" type="Button" parent="Options_menu/HBoxContainer/rightcontainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 25
@@ -253,8 +255,8 @@ alignment = 0
 
 [node name="ui_mute" type="Button" parent="Options_menu/HBoxContainer/rightcontainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 25
@@ -307,8 +309,8 @@ theme_override_constants/margin_top = 45
 
 [node name="options_quit" type="Button" parent="Options_menu/HBoxContainer/rightcontainer/MarginContainer2"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 25

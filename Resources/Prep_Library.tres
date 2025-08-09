@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Prep_Library" load_steps=2 format=3 uid="uid://c6ufs837j5ede"]
 
-[ext_resource type="Script" path="res://Resources/level_prep_library.gd" id="1_t2r0k"]
+[ext_resource type="Script" uid="uid://c6yvwhymcdqew" path="res://Resources/level_prep_library.gd" id="1_t2r0k"]
 
 [resource]
 script = ExtResource("1_t2r0k")

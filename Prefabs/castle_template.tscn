@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bq1fx7vdher66" path="res://Sprites/castle_open.png" id="1_5qo4p"]
 [ext_resource type="Texture2D" uid="uid://grcmsdv6olfm" path="res://Sprites/castle.png" id="1_p7kiy"]
-[ext_resource type="Script" path="res://Scripts/house.gd" id="2_6of6t"]
+[ext_resource type="Script" uid="uid://nhdycokotpwy" path="res://Scripts/house.gd" id="2_6of6t"]
 [ext_resource type="PackedScene" uid="uid://c11e0r02ahjeb" path="res://Prefabs/potion_box_prefab.tscn" id="3_4s8os"]
 [ext_resource type="Texture2D" uid="uid://buawn732k8qj2" path="res://Sprites/request bubble.png" id="4_nlxkx"]
 [ext_resource type="Texture2D" uid="uid://duytgmxrv5v4o" path="res://Sprites/house result.png" id="5_1adsd"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://be7xq1as7uvvb"]
 
-[ext_resource type="Script" path="res://Scripts/scene scripts/scene transitioner.gd" id="1_b3gni"]
+[ext_resource type="Script" uid="uid://dj52l8fba506s" path="res://Scripts/scene scripts/scene transitioner.gd" id="1_b3gni"]
 [ext_resource type="Material" uid="uid://bnyl8fig8gt8g" path="res://misc visual assets/scene transition.tres" id="2_dqq6u"]
 [ext_resource type="Texture2D" uid="uid://c2qvnuq2f6upx" path="res://Sprites/Generic Background.png" id="3_pw5ip"]
 
@@ -87,9 +87,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yhlbx"]
 _data = {
-"RESET": SubResource("Animation_k5l2k"),
-"bubble in": SubResource("Animation_hav2k"),
-"bubble out": SubResource("Animation_sxoev")
+&"RESET": SubResource("Animation_k5l2k"),
+&"bubble in": SubResource("Animation_hav2k"),
+&"bubble out": SubResource("Animation_sxoev")
 }
 
 [node name="CanvasLayer" type="CanvasLayer"]

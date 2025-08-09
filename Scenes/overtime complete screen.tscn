@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c7kc3afjsy4hp"]
 
-[ext_resource type="Script" path="res://Scripts/scene scripts/overtime screen.gd" id="1_jn2yw"]
+[ext_resource type="Script" uid="uid://ckycixuw6y61i" path="res://Scripts/scene scripts/overtime screen.gd" id="1_jn2yw"]
 [ext_resource type="Texture2D" uid="uid://cg6lcsqcax324" path="res://Sprites/large window background.png" id="2_3gvbv"]
 [ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="3_t3q6l"]
 [ext_resource type="Texture2D" uid="uid://d2pqqdyk5usew" path="res://Sprites/player standalone.png" id="4_eagbg"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="1_lkidt"]
 [ext_resource type="Texture2D" uid="uid://cg6lcsqcax324" path="res://Sprites/large window background.png" id="1_y43rl"]
-[ext_resource type="Script" path="res://Scripts/mission_prep.gd" id="2_ieeml"]
+[ext_resource type="Script" uid="uid://caeohosxg641h" path="res://Scripts/mission_prep.gd" id="2_ieeml"]
 [ext_resource type="StyleBox" uid="uid://c6h4nvnui5w0l" path="res://misc visual assets/button_hover stylebox.tres" id="4_lkv4p"]
 
 [node name="Mission Prep" type="Sprite2D"]

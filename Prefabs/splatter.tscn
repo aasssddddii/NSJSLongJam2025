@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d1m6eqvaujh8l"]
 
-[ext_resource type="Script" path="res://Scripts/splatter.gd" id="1_xu7gb"]
+[ext_resource type="Script" uid="uid://3efd3ueb0lnm" path="res://Scripts/splatter.gd" id="1_xu7gb"]
 
 [node name="splatter" type="Sprite2D"]
 scale = Vector2(0.6, 0.6)

@@ -46,24 +46,11 @@ func get_level_highscore(level:int):
 var shown_end_credits:bool#needs to be exported to level highscore for ease of saving
 var shown_intro_scene:bool#needs to be exported to level highscore for ease of saving
 var shown_overtime_intro_scene:bool#needs to be exported to level highscore for ease of saving
+var level_5_complete:bool
 
-var game_muted:bool#needs to be exported to level highscore for ease of saving
-var sfx_volume:int# = 0#needs to be exported to level highscore for ease of saving
-var music_volume:int#needs to be exported to level highscore for ease of saving
-
-var menu_settings:Dictionary = {
-	"set":false,
-	"colorblind":false,
-	"fullscreen":0,
-	"mute":false,
-	"sfx_volume":0,
-	"music_volume":0
-}
-var menu_defaults:Dictionary = {
-	"set":false,
-	"colorblind":false,
-	"fullscreen":0,
-	"mute":false,
-	"sfx_volume":0,
-	"music_volume":0
-}
+var values_set:bool
+var colorblind_mode:bool
+var fullscreen:int
+var game_muted:bool
+var sfx_volume:int = -10#
+var music_volume:int = 10#

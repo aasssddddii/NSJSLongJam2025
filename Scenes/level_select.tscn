@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=3 uid="uid://gesn7g62ia3l"]
 
-[ext_resource type="Script" path="res://Scripts/scene scripts/level_select.gd" id="1_bxhl5"]
+[ext_resource type="Script" uid="uid://c26trf62q5teu" path="res://Scripts/scene scripts/level_select.gd" id="1_bxhl5"]
 [ext_resource type="FontFile" uid="uid://b7i4tu11o5lso" path="res://Fonts/04B_30__.TTF" id="2_t1oyu"]
 [ext_resource type="Texture2D" uid="uid://kjr7l3k0jmeo" path="res://Sprites/easy_level_bg.png" id="3_u25nd"]
 [ext_resource type="Texture2D" uid="uid://cnrcd4qkx1txo" path="res://Sprites/easy_level_bg highlighted.png" id="4_mdtue"]
-[ext_resource type="Script" path="res://Scripts/level_select_button.gd" id="4_udwv3"]
+[ext_resource type="Script" uid="uid://1yjoy4nadb74" path="res://Scripts/level_select_button.gd" id="4_udwv3"]
 [ext_resource type="Texture2D" uid="uid://cnqskaa4jx6wf" path="res://Sprites/medium_level_bg.png" id="5_84w5c"]
 [ext_resource type="Texture2D" uid="uid://cd64i8y6ckn3a" path="res://Sprites/gold star.png" id="5_tn2ex"]
 [ext_resource type="Texture2D" uid="uid://bwje71o1pl0pf" path="res://Sprites/hard_level_bg.png" id="6_bfshv"]
@@ -461,8 +461,8 @@ offset_top = 569.0
 offset_right = 1129.0
 offset_bottom = 618.0
 focus_neighbor_right = NodePath("../GridContainer/ui_monday")
-theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("2_t1oyu")
 theme_override_font_sizes/font_size = 40

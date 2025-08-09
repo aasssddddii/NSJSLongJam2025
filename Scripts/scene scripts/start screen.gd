@@ -24,7 +24,7 @@ var is_game_mute:bool
 var options_displayed:bool
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	overtime_display.visible = game_manager.level_5_complete
+	overtime_display.visible = game_manager.highscore_lib.level_5_complete
 	options_menu.visible = false
 	setup_options()
 	start_button.call_deferred("grab_focus")
@@ -60,7 +60,7 @@ func display_options():
 		options_menu.visible = options_displayed
 		main_menu.visible = !options_displayed
 		title_label.visible = !options_displayed
-		if game_manager.level_5_complete:
+		if game_manager.highscore_lib.level_5_complete:
 			overtime_display.visible = !options_displayed
 		ui_colorblind_button.grab_focus()
 
@@ -77,9 +77,9 @@ func _on_ui_mute_button_down():
 	game_manager.play_sfx(game_manager.button_select)
 	toggle_mute()
 func _on_h_slider_value_changed(value):
-	change_volume(1,value)#Testing bus 0 for Master
+	game_manager.change_volume(1,value)
 func _on_music_slider_value_changed(value):
-	change_volume(2,value)
+	game_manager.change_volume(2,value)
 func _on_options_quit_button_down():
 	game_manager.play_sfx(game_manager.button_select)
 	options_displayed = !options_displayed
@@ -96,6 +96,8 @@ func toggle_colorblind():
 		ui_colorblind.text = "ON"
 	else:
 		ui_colorblind.text = "OFF"
+	#send to highscoure resource
+	game_manager.save_game()
 	
 	
 func cycle_fullscreen():
@@ -121,6 +123,9 @@ func cycle_fullscreen():
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
 			fullscreen_text = "Borderless"
 	ui_fullscreen.text = fullscreen_text
+	
+	#send to highscoure resource
+	game_manager.save_game()
 
 
 func toggle_mute():
@@ -135,14 +140,16 @@ func toggle_mute():
 		show_slider(true)
 		game_manager.unmute_audio()
 	
-func change_volume(bus:int,amount:int):
-	print("CHANGING VOLUME BUS:", bus, " TO: ", amount)
-	AudioServer.set_bus_volume_db(bus,amount)
-	match  bus:
-		1:
-			game_manager.highscore_lib.sfx_volume = amount
-		2:
-			game_manager.highscore_lib.music_volume = amount
+#func change_volume(bus:int,amount:int):
+	#print("CHANGING VOLUME BUS:", bus, " TO: ", amount)
+	#AudioServer.set_bus_volume_db(bus,amount)
+	#match  bus:
+		#1:
+			#game_manager.highscore_lib.sfx_volume = amount
+		#2:
+			#game_manager.highscore_lib.music_volume = amount
+			#
+	#game_manager.save_game()
 	
 func show_slider(slider_on:bool):
 	ui_volume.visible = slider_on
@@ -153,39 +160,39 @@ func show_slider(slider_on:bool):
 
 
 func setup_options():
-	var setter_dic
-	if !game_manager.menu_settings["set"]:
+	var colorblind_text
+	if !game_manager.highscore_lib.values_set:
 		#get defaults
-		setter_dic = game_manager.menu_defaults
-		pass
+		if game_manager.highscore_lib.colorblind_mode:
+			colorblind_text = "ON"
+		else:
+			colorblind_text = "OFF"
+		
+
 	else:
 		#get gamemanager menu settings
-		setter_dic = game_manager.menu_settings
 		pass
 	#set values
-	if setter_dic["colorblind"]:
-		ui_colorblind_button.text = "ON"
-	else:
-		ui_colorblind_button.text = "OFF"
-	full_screen_index = setter_dic["fullscreen"]
-	match setter_dic["fullscreen"]:
+	ui_colorblind_button.text = colorblind_text
+	
+	match game_manager.highscore_lib.fullscreen:
 		0:
 			ui_fullscreen.text = "Windowed"
 		1:
 			ui_fullscreen.text = "FullScreen"
 		2:
 			ui_fullscreen.text = "Borderless"
-	if setter_dic["mute"]:
+	if game_manager.highscore_lib.game_muted:
 		ui_mute.text = "ON"
 		show_slider(false)
 		toggle_mute()
-		SFX_slider.value = setter_dic["sfx_volume"]
-		music_slider.value = setter_dic["music_volume"]
+		SFX_slider.value = game_manager.highscore_lib.sfx_volume
+		music_slider.value = game_manager.highscore_lib.music_volume
 	else:
 		ui_mute.text = "OFF"
 		show_slider(true)
-		SFX_slider.value = setter_dic["sfx_volume"]
-		music_slider.value = setter_dic["music_volume"]
+		SFX_slider.value = game_manager.highscore_lib.sfx_volume
+		music_slider.value = game_manager.highscore_lib.music_volume
 
 
 
@@ -199,6 +206,3 @@ func setup_options():
 
 func _on_video_stream_player_finished():
 	$VideoStreamPlayer.play()
-
-
-
