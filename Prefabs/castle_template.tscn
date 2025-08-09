@@ -71,6 +71,7 @@ position = Vector2(67.5, -76)
 
 [node name="ui_result" type="Node2D" parent="."]
 visible = false
+z_index = 2
 
 [node name="background" type="Sprite2D" parent="ui_result"]
 position = Vector2(117, 58)

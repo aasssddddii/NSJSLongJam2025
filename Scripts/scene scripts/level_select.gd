@@ -10,11 +10,12 @@ var ui_level_5
 var ui_level_6
 var ui_level_7
 
-@export var testing:bool
+#@export var testing:bool
 @onready var title = $Title
 @onready var levels_grid = $GridContainer
 @onready var back_button = $back
 @onready var mission_prep_window = $"Mission Prep"
+var button_clicked:bool
 func _ready():
 	#setup completion visuals
 
@@ -38,8 +39,8 @@ func show_unlocked_levels():
 	var level_check_index:int
 	for level in game_manager.highscore_lib.levels:
 		back_button.focus_neighbor_left = NodePath(ui_level_1.get_path())
+		var current_check_level_button = level_buttons[level_check_index]
 		if level["completed"]:
-			var current_check_level_button = level_buttons[level_check_index]
 			current_check_level_button.ui_deliveries_node.text = var_to_str(game_manager.deliveries_made)
 			current_check_level_button.complete_star.visible = true
 			current_check_level_button.get_child(1).text = var_to_str(level["deliveries_made"])
@@ -47,17 +48,20 @@ func show_unlocked_levels():
 				level_buttons[level_check_index+1].visible = true
 				level_buttons[level_check_index+1].grab_focus()
 				back_button.focus_neighbor_left = NodePath(level_buttons[level_check_index].get_path())
-		elif testing:
-			level_buttons[level_check_index].visible = true
+#		elif testing:
+#			level_buttons[level_check_index].visible = true
 		else:
+			current_check_level_button.get_child(1).text = var_to_str(level["deliveries_made"])
 			level_buttons[level_check_index].grab_focus()
 			back_button.focus_neighbor_left = NodePath(level_buttons[level_check_index].get_path())
 			break
 		level_check_index+=1
 
 func _on_back_button_down():
-	game_manager.play_sfx(game_manager.button_select)
-	game_manager.change_scene(self,game_manager.start_screen)
+	if !button_clicked:
+		button_clicked = true
+		game_manager.play_sfx(game_manager.button_select)
+		game_manager.change_scene(self,game_manager.start_screen)
 
 
 func _on_ui_monday_button_down():

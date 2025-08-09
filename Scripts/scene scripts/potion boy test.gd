@@ -23,7 +23,7 @@ const castle_offset:Vector2 = Vector2(0,-40)
 
 func _ready():
 	create_level()
-	oob_detector.body_entered.connect(remove_oob_potion)
+#	oob_detector.body_entered.connect(remove_oob_potion)
 	
 	
 func create_level():
@@ -74,11 +74,11 @@ func resolve_house_result(is_happy:bool,reward_amount:int):
 		game_manager.company_profits += reward_amount
 	print("company profits: ", game_manager.company_profits, " happy customers so far: ", game_manager.deliveries_made)
 	
-func remove_oob_potion(area):
-	if area.is_in_group("potion"):
-		print("removing potion")
-		game_manager.level_splatters += 1
-		area.queue_free()
+#func remove_oob_potion(area):
+#	if area.is_in_group("potion"):
+#		print("removing potion")
+#		game_manager.level_splatters += 1
+#		area.queue_free()
 	
 	
 func tilemap_transposer():

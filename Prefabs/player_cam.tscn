@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cwoedy5df1on3"]
+[gd_scene load_steps=21 format=3 uid="uid://cwoedy5df1on3"]
 
 [ext_resource type="Script" path="res://Scripts/player_cam.gd" id="1_2cly1"]
 [ext_resource type="Script" path="res://Scripts/player_controller.gd" id="2_uwc8u"]
@@ -36,10 +36,17 @@ size = Vector2(483, 65)
 [sub_resource type="CircleShape2D" id="CircleShape2D_rfpgr"]
 radius = 13.0384
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c0oqv"]
+size = Vector2(29, 952)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8px7c"]
+size = Vector2(55, 4297)
+
 [node name="player_cam" type="Camera2D"]
 position = Vector2(0, 330)
 ignore_rotation = false
 script = ExtResource("1_2cly1")
+testing = true
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 position = Vector2(1, -1)
@@ -156,7 +163,6 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("7_nyjqb")
 theme_override_font_sizes/font_size = 20
-text = "ui_day"
 
 [node name="level_end_check" type="Area2D" parent="."]
 
@@ -166,7 +172,7 @@ shape = SubResource("CircleShape2D_rfpgr")
 
 [node name="level_summary_background" type="Sprite2D" parent="."]
 visible = false
-z_index = 1
+z_index = 2
 texture = ExtResource("8_vleqp")
 
 [node name="title label" type="Label" parent="level_summary_background"]
@@ -348,6 +354,26 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = ExtResource("10_cpdvf")
 text = "OK"
 flat = true
+
+[node name="house side" type="RigidBody2D" parent="."]
+position = Vector2(-294, -222)
+collision_layer = 4
+collision_mask = 4
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="house side"]
+position = Vector2(177, 239)
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_c0oqv")
+
+[node name="potion oob detector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="potion oob detector"]
+position = Vector2(-500, -500)
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_8px7c")
 
 [connection signal="area_entered" from="level_end_check" to="." method="_on_level_end_check_area_entered"]
 [connection signal="button_down" from="level_summary_background/Button" to="." method="_on_button_button_down"]

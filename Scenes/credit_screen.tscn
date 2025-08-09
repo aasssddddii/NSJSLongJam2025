@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbqgkkyqv7any"]
+[gd_scene load_steps=8 format=3 uid="uid://bbqgkkyqv7any"]
 
 [ext_resource type="Script" path="res://Scripts/scene scripts/credit_screen.gd" id="1_jc84s"]
 [ext_resource type="Texture2D" uid="uid://cg6lcsqcax324" path="res://Sprites/large window background.png" id="2_nhpiw"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d2xm7omtokh2h" path="res://Sprites/NSJS.png" id="4_rq1tp"]
 [ext_resource type="Texture2D" uid="uid://hc2n7v4k8f48" path="res://Sprites/potionrewardimage.png" id="5_mk4jn"]
 [ext_resource type="StyleBox" uid="uid://c6h4nvnui5w0l" path="res://misc visual assets/button_hover stylebox.tres" id="5_usjs6"]
+[ext_resource type="FontFile" uid="uid://bfyyf8ga4v1n" path="res://Fonts/ari-w9500-display.ttf" id="7_v0ach"]
 
 [node name="Credits" type="Node2D"]
 script = ExtResource("1_jc84s")
@@ -97,7 +98,6 @@ size_flags_horizontal = 3
 
 [node name="title" type="Label" parent="ScrollContainer/Container"]
 layout_mode = 2
-focus_mode = 2
 theme_override_colors/font_color = Color(0.14902, 0.545098, 0.823529, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
@@ -109,7 +109,6 @@ autowrap_mode = 3
 
 [node name="title3" type="Label" parent="ScrollContainer/Container"]
 layout_mode = 2
-focus_mode = 2
 theme_override_colors/font_color = Color(0.0784314, 0.380392, 0.454902, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
@@ -119,20 +118,43 @@ text = "Long Jam #2"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="TextureRect" type="TextureRect" parent="ScrollContainer/Container"]
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/Container"]
 layout_mode = 2
-focus_mode = 2
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/Container/MarginContainer"]
+layout_mode = 2
 texture = ExtResource("4_rq1tp")
 stretch_mode = 5
 
 [node name="title2" type="Label" parent="ScrollContainer/Container"]
 layout_mode = 2
-focus_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_t64xr")
+theme_override_font_sizes/font_size = 50
+text = "Fonts"
+horizontal_alignment = 1
+
+[node name="title4" type="Label" parent="ScrollContainer/Container"]
+layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("2_t64xr")
 theme_override_font_sizes/font_size = 35
-text = "04b_30   By: 04"
+text = "04b_30 By: 04"
 horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="title5" type="Label" parent="ScrollContainer/Container"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("7_v0ach")
+theme_override_font_sizes/font_size = 35
+text = "Ari-W9500 By:Catterio Sylt"
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [connection signal="button_down" from="done" to="." method="_on_done_button_down"]

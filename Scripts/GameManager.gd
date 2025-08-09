@@ -1,6 +1,7 @@
 extends Node
 
-var game_manager = GameManager
+signal endless_over
+
 const scroll_window_speed:int = 25
 
 enum PotionType {
@@ -25,6 +26,8 @@ enum PotionType {
 @onready var prep_lib = preload("res://Resources/Prep_Library.tres")
 @onready var potion_boy_scene = preload("res://Scenes/potion boy test.tscn")
 @onready var transitioner_prefab = preload("res://Scenes/scene transitioner.tscn")
+@onready var endless_mode_prefab = preload("res://Scenes/potion boy endless.tscn")
+@onready var endless_tile_spawn = preload("res://Prefabs/endless_tile_spawn.tscn")
 var requestable_potions:Array[PotionType] = [PotionType.BLUE,PotionType.RED,PotionType.YELLOW,PotionType.GREEN,PotionType.ORANGE,PotionType.PURPLE,PotionType.BLACK]
 var splatter_textures:Array[String] = ["res://Sprites/splatter1.png","res://Sprites/splatter2.png","res://Sprites/splatter3.png"]
 var rng = RandomNumberGenerator.new()
@@ -33,12 +36,13 @@ var rng = RandomNumberGenerator.new()
 
 
 
-var shown_end_credits:bool
+
+#var shown_end_credits:bool#needs to be exported to level highscore for ease of saving
 var show_end_splash:bool
 
 var level_5_complete:bool
-var shown_intro_scene:bool
-var shown_overtime_intro_scene:bool
+#var shown_intro_scene:bool#needs to be exported to level highscore for ease of saving
+#var shown_overtime_intro_scene:bool#needs to be exported to level highscore for ease of saving
 
 #MUST RESETERS
 var company_profits:int
@@ -54,26 +58,37 @@ var color_blind_mode:bool #= true
 var ui_jukebox= AudioStreamPlayer2D.new()
 var ui_sfx_generator = AudioStreamPlayer2D.new()
 
-var sfx_volume:int# = 0
-var music_volume:int
+#var game_muted:bool#needs to be exported to level highscore for ease of saving
+#var sfx_volume:int# = 0#needs to be exported to level highscore for ease of saving
+#var music_volume:int#needs to be exported to level highscore for ease of saving
 
 var transitioner
+var transitioning:bool
+var transition_timer:float = .8
 
 var potion_selector_prefab = preload("res://Prefabs/potion_template.tscn")
-
+var unpausable:bool
 var game_level:int #= 5
+
+var endless_mode:bool
 
 func _ready():
 	add_child(ui_jukebox)
 	add_child(ui_sfx_generator)
 	ui_jukebox.bus = "Music"
 	ui_sfx_generator.bus = "SFX"
-	ui_jukebox.volume_db = 1
-	ui_sfx_generator.volume_db = 1
+	
+	#change to check for file when game saving
+	setup_settings(highscore_lib.menu_defaults)
+	
 	transitioner = transitioner_prefab.instantiate()
 	get_tree().root.add_child.call_deferred(transitioner)
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	
-
+func _input(event):
+	if event.is_action_pressed("button_pause"):
+		if get_tree().paused && unpausable:
+			unpause_game()
 
 func pickup_player_audio(parent:Node2D):
 	ui_jukebox.reparent(parent)
@@ -85,6 +100,12 @@ func return_player_audio():
 	ui_jukebox.reparent(self)
 	ui_sfx_generator.reparent(self)
 	
+	
+func endless_check():
+	if unhappy_customers >= 3:
+		print("endless over")
+		endless_over.emit()
+		
 func get_new_potion_request(level:int):
 	var rng_potion_index_low:int
 	var rng_potion_index_high:int = 6
@@ -118,24 +139,62 @@ func get_new_potion_request(level:int):
 		returned_request.append(requestable_potions[rng.randi_range(rng_potion_index_low,rng_potion_index_high)])
 	return returned_request
 
+func get_endless_potion_request(house_type:String,endless_level:int):
+	var rng_potion_index_low:int
+	var rng_potion_index_high:int = 6
+	var required_amount_low:int = 1
+	var required_amount_high:int = 3
+	var returned_request:Array[PotionType]
+	
+	match house_type:
+		"house":
+			rng_potion_index_high = 5 
+			if endless_level >= 2:
+				required_amount_high = 2
+			else:
+				required_amount_high = 1
+		"hut":
+			if endless_level >= 4:
+				required_amount_high = 3
+			else:
+				required_amount_high = 2
+		"castle":
+			
+			if endless_level > 2:
+				required_amount_low = 3
+			else:
+				required_amount_low = 2
+	
+	#pick how many potions required
+	for i in rng.randi_range(required_amount_low,required_amount_high):
+		#pick which potion is next
+		returned_request.append(requestable_potions[rng.randi_range(rng_potion_index_low,rng_potion_index_high)])
+	return returned_request
+
+
 func change_scene(from_scene,to_scene):
-	await transistion_to_scene().timeout
-	stop_music()
-	var next_scene = to_scene.instantiate()
-	if to_scene == level_select_screen && !shown_intro_scene:
-		next_scene = intro_scene.instantiate()
-		shown_intro_scene = true
-	if to_scene == level_select_screen && !shown_overtime_intro_scene && shown_intro_scene && level_5_complete:
-		next_scene = overtime_start_scene.instantiate()
-		shown_overtime_intro_scene = true
-	get_tree().root.add_child.call_deferred(next_scene)
-	if to_scene == potion_boy_scene:
-		play_music(game_music)
-	if to_scene == credits_screen && show_end_splash:
-		await get_tree().create_timer(.5).timeout
-		next_scene.show_win_splash()
-	from_scene.queue_free()
-	transition_from_scene()
+	#while scene transitioning dont change scene
+	if !transitioning:
+		transitioning = true
+		await transistion_to_scene().timeout
+		
+		stop_music()
+		var next_scene = to_scene.instantiate()
+		if to_scene == level_select_screen && !highscore_lib.shown_intro_scene:
+			next_scene = intro_scene.instantiate()
+			highscore_lib.shown_intro_scene = true
+		if to_scene == level_select_screen && !highscore_lib.shown_overtime_intro_scene && highscore_lib.shown_intro_scene && level_5_complete:
+			next_scene = overtime_start_scene.instantiate()
+			highscore_lib.shown_overtime_intro_scene = true
+		get_tree().root.add_child.call_deferred(next_scene)
+		if to_scene == potion_boy_scene:
+			play_music(game_music)
+		if to_scene == credits_screen && show_end_splash:
+			await get_tree().create_timer(.5).timeout
+			next_scene.show_win_splash()
+		from_scene.queue_free()
+		transition_from_scene()
+		
 	
 func finish_level_scene(level_node):
 	play_sfx(button_select)
@@ -171,7 +230,7 @@ func finish_level_scene(level_node):
 		
 		
 	if requirment_meet && game_level == 5:
-		if !shown_end_credits:
+		if !highscore_lib.shown_end_credits:
 			print("Showing Game Over Win screen")
 			level_5_complete = true
 			change_scene(level_node,game_over_screen)
@@ -197,7 +256,13 @@ func finish_level_scene(level_node):
 		#reset restters
 		level_reset()
 
-	
+
+func finish_endless_scene(level_node):
+	return_player_audio()
+	change_scene(level_node,start_screen)
+	level_reset()
+
+
 func level_reset():
 	company_profits = 0
 	deliveries_made = 0
@@ -243,9 +308,46 @@ func unmute_audio():
 func transistion_to_scene():
 	var animator:AnimationPlayer = transitioner.animator
 	animator.play("bubble in")
-	return get_tree().create_timer(.8)
+	return get_tree().create_timer(transition_timer)
+	
 	
 func transition_from_scene():
 	var animator:AnimationPlayer = transitioner.animator
-	await get_tree().create_timer(.8).timeout
+	await get_tree().create_timer(transition_timer).timeout
 	animator.play("bubble out")
+	transitioning = false
+	
+func pause_game():
+	get_tree().paused = true
+	await get_tree().create_timer(.2).timeout
+	unpausable = true
+	
+func unpause_game():
+	get_tree().paused = false
+	unpausable = false
+
+func setup_settings(settings_data:Dictionary):
+	color_blind_mode = settings_data["colorblind"]
+	match settings_data["fullscreen"]:
+		0:#windowed
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+		1:#fullscreen
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		2:#borderless
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+	highscore_lib.game_muted = settings_data["mute"]
+	if highscore_lib.game_muted:
+		mute_audio()
+	else:
+		unmute_audio()
+	ui_jukebox.volume_db = highscore_lib.music_volume
+	ui_sfx_generator.volume_db = highscore_lib.sfx_volume
+	
+	
+func save_game():
+	#var saver:Resource
+	pass
+func get_saved_settings():
+	pass

@@ -45,9 +45,9 @@ text = "POTION BOY"
 
 [node name="options" type="VBoxContainer" parent="."]
 offset_left = 125.0
-offset_top = 394.0
+offset_top = 346.0
 offset_right = 321.0
-offset_bottom = 584.0
+offset_bottom = 641.0
 theme_override_constants/separation = 25
 
 [node name="Start" type="Button" parent="options"]
@@ -58,7 +58,18 @@ theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = ExtResource("4_7h2vt")
-text = "START"
+text = "STORY"
+flat = true
+
+[node name="Endless" type="Button" parent="options"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("1_2m0kd")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = ExtResource("4_7h2vt")
+text = "ENDLESS"
 flat = true
 
 [node name="options" type="Button" parent="options"]
@@ -114,6 +125,7 @@ Unlocked"
 horizontal_alignment = 1
 
 [node name="Options_menu" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(588, 315)
 texture = ExtResource("4_n5gu7")
 
@@ -131,10 +143,10 @@ text = "OPTIONS"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Options_menu"]
-offset_left = -240.0
+offset_left = -244.0
 offset_top = -61.0
-offset_right = 239.0
-offset_bottom = 214.0
+offset_right = 235.0
+offset_bottom = 217.0
 alignment = 1
 
 [node name="leftcontainer" type="VBoxContainer" parent="Options_menu/HBoxContainer"]
@@ -149,7 +161,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
-theme_override_font_sizes/font_size = 27
+theme_override_font_sizes/font_size = 25
 text = "Colorblind:"
 flat = true
 alignment = 2
@@ -163,7 +175,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
-theme_override_font_sizes/font_size = 27
+theme_override_font_sizes/font_size = 25
 text = "FullScreen:"
 flat = true
 alignment = 2
@@ -177,7 +189,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
-theme_override_font_sizes/font_size = 27
+theme_override_font_sizes/font_size = 25
 text = "Mute:"
 flat = true
 alignment = 2
@@ -191,7 +203,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
-theme_override_font_sizes/font_size = 27
+theme_override_font_sizes/font_size = 25
 button_mask = 0
 text = "SFX:"
 flat = true
@@ -206,7 +218,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
-theme_override_font_sizes/font_size = 27
+theme_override_font_sizes/font_size = 25
 button_mask = 0
 text = "Music:"
 flat = true
@@ -221,7 +233,7 @@ theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
-theme_override_font_sizes/font_size = 27
+theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = ExtResource("4_7h2vt")
 text = "OFF"
 flat = true
@@ -233,7 +245,7 @@ theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
-theme_override_font_sizes/font_size = 27
+theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = ExtResource("4_7h2vt")
 text = "Windowed"
 flat = true
@@ -245,7 +257,7 @@ theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
-theme_override_font_sizes/font_size = 27
+theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = ExtResource("4_7h2vt")
 text = "OFF"
 flat = true
@@ -299,7 +311,7 @@ theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_2m0kd")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 theme_override_styles/focus = ExtResource("4_7h2vt")
 text = "Back"
 flat = true
@@ -307,6 +319,7 @@ alignment = 2
 
 [connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
 [connection signal="button_down" from="options/Start" to="." method="_on_start_button_down"]
+[connection signal="button_down" from="options/Endless" to="." method="_on_endless_button_down"]
 [connection signal="button_down" from="options/options" to="." method="_on_options_button_down"]
 [connection signal="button_down" from="options/credits" to="." method="_on_credits_button_down"]
 [connection signal="button_down" from="options/quit" to="." method="_on_quit_button_down"]

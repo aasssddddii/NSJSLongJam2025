@@ -33,8 +33,11 @@ var can_throw:bool = true
 var throw_cooldown = .5 # +.3
 
 func _ready():
-	var level_data_ref = game_manager.prep_lib.get_level_prep(game_manager.game_level)
-	ui_day.text = level_data_ref["day"]
+	if !game_manager.endless_mode:
+		var level_data_ref = game_manager.prep_lib.get_level_prep(game_manager.game_level)
+		ui_day.text = level_data_ref["day"]
+	else:
+		ui_day.visible = false
 	setup_player_ui()
 
 func _physics_process(delta):
@@ -93,6 +96,10 @@ func _input(event):
 			if selected_potion_index == -1 && selected_potion_type != GameManager.PotionType.NONE && infinite_types.find(selected_potion_type) == -1 && potion_inventory.size() <5:
 				getset_potion_inventory("add",selected_potion_type)
 				empty_mixer()
+		if event.is_action_pressed("button_pause"):
+			game_manager.pause_game()
+		
+		
 		
 func setup_player_ui():
 	for potion in potion_inventory:
@@ -242,3 +249,6 @@ func animate_player_throw():
 	player_sprite.texture = load("res://Sprites/player_bag.png")
 	await get_tree().create_timer(throw_cooldown).timeout
 	can_throw = true
+
+
+

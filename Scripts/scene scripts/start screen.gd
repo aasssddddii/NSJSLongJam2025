@@ -19,14 +19,14 @@ var game_manager = GameManager
 
 @onready var main_menu = $options
 @onready var title_label = $Title
-var full_screen_index:int
+var full_screen_index:int 
 var is_game_mute:bool
 var options_displayed:bool
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	overtime_display.visible = game_manager.level_5_complete
 	options_menu.visible = false
-	SFX_slider.value = game_manager.sfx_volume 
+	setup_options()
 	start_button.call_deferred("grab_focus")
 
 
@@ -47,6 +47,10 @@ func _on_credits_button_down():
 func _on_options_button_down():
 	game_manager.play_sfx(game_manager.button_select)
 	display_options()
+func _on_endless_button_down():
+	game_manager.endless_mode = true
+	game_manager.play_sfx(game_manager.button_select)
+	game_manager.change_scene(self, game_manager.endless_mode_prefab)
 
 
 
@@ -83,7 +87,6 @@ func _on_options_quit_button_down():
 		options_menu.visible = options_displayed
 		main_menu.visible = !options_displayed
 		title_label.visible = !options_displayed
-		
 	start_button.grab_focus()
 
 
@@ -96,11 +99,13 @@ func toggle_colorblind():
 	
 	
 func cycle_fullscreen():
+	print("cycling fullscreen index from: ",full_screen_index)
 	if full_screen_index <2:
 		full_screen_index +=1
 	else:
 		full_screen_index = 0
 		
+	print("to: ",full_screen_index)
 	var fullscreen_text = "Fullscreen"
 	
 	match full_screen_index:
@@ -135,7 +140,9 @@ func change_volume(bus:int,amount:int):
 	AudioServer.set_bus_volume_db(bus,amount)
 	match  bus:
 		1:
-			game_manager.sfx_volume = amount
+			game_manager.highscore_lib.sfx_volume = amount
+		2:
+			game_manager.highscore_lib.music_volume = amount
 	
 func show_slider(slider_on:bool):
 	ui_volume.visible = slider_on
@@ -145,11 +152,42 @@ func show_slider(slider_on:bool):
 		
 
 
+func setup_options():
+	var setter_dic
+	if !game_manager.menu_settings["set"]:
+		#get defaults
+		setter_dic = game_manager.menu_defaults
+		pass
+	else:
+		#get gamemanager menu settings
+		setter_dic = game_manager.menu_settings
+		pass
+	#set values
+	if setter_dic["colorblind"]:
+		ui_colorblind_button.text = "ON"
+	else:
+		ui_colorblind_button.text = "OFF"
+	full_screen_index = setter_dic["fullscreen"]
+	match setter_dic["fullscreen"]:
+		0:
+			ui_fullscreen.text = "Windowed"
+		1:
+			ui_fullscreen.text = "FullScreen"
+		2:
+			ui_fullscreen.text = "Borderless"
+	if setter_dic["mute"]:
+		ui_mute.text = "ON"
+		show_slider(false)
+		toggle_mute()
+		SFX_slider.value = setter_dic["sfx_volume"]
+		music_slider.value = setter_dic["music_volume"]
+	else:
+		ui_mute.text = "OFF"
+		show_slider(true)
+		SFX_slider.value = setter_dic["sfx_volume"]
+		music_slider.value = setter_dic["music_volume"]
 
 
-#func play_click_sfx():
-#	sfx_generator.stream = load("res://Audio/SFX/button_select.ogg")
-#	sfx_generator.play()
 
 
 
@@ -161,3 +199,6 @@ func show_slider(slider_on:bool):
 
 func _on_video_stream_player_finished():
 	$VideoStreamPlayer.play()
+
+
+

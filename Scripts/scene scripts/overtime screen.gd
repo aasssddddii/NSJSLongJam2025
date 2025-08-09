@@ -19,4 +19,7 @@ func  _ready():
 
 func _on_done_button_down():
 	game_manager.play_sfx(game_manager.button_select)
-	game_manager.change_scene(self,game_manager.level_select_screen)
+	if name == "overtime complete screen":
+		game_manager.change_scene(self,game_manager.start_screen)
+	else:
+		game_manager.change_scene(self,game_manager.level_select_screen)

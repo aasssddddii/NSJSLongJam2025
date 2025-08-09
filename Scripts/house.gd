@@ -21,6 +21,7 @@ var potion_requirements:Array[GameManager.PotionType]
 @onready var ui_result = $ui_result
 @onready var ui_face = $ui_result/ui_face
 @onready var splatter_layer = $"splatter layer"
+@onready var OOB_tracker = $OOB
 
 @export var negative_splatter_areas:Array[Area2D]
 
@@ -29,11 +30,19 @@ var reward_money:int
 
 var valid_house:bool = true
 
+var house_type:String
+
 func _ready():
 	ui_result.visible = false
 	#set house type
+	print("house type = ", house_type)
 	#set potion requirements
-	potion_requirements = game_manager.get_new_potion_request(game_manager.game_level)
+	if !game_manager.endless_mode:
+		potion_requirements = game_manager.get_new_potion_request(game_manager.game_level)
+	else:
+		potion_requirements = game_manager.get_endless_potion_request(house_type,$"../..".endless_level)
+	OOB_tracker.area_entered.connect(_on_oob_area_entered)
+	game_manager.endless_over.connect(turn_off_endless_monitoring)
 	#display potion requirements
 	display_potion_requirements(potion_requirements)
 	#setup negative splatter
@@ -88,6 +97,8 @@ func requirement_finished(potion_delivered:bool):
 		#negative stuff
 		
 		game_manager.unhappy_customers += 1
+		game_manager.endless_check()
+		#print("angry clients: ", game_manager.unhappy_customers)
 		game_manager.play_sfx(game_manager.house_mad)
 	else:
 		game_manager.play_sfx(game_manager.house_happy)
@@ -135,6 +146,12 @@ func setup_splatter(body):
 func turn_off_monitoring():
 	potion_submission_area.set_deferred("monitoring",false)
 	door_submission_area.set_deferred("monitoring",false)
+	
+func turn_off_endless_monitoring():
+	potion_submission_area.set_deferred("monitoring",false)
+	door_submission_area.set_deferred("monitoring",false)
+	OOB_tracker.area_entered.disconnect(_on_oob_area_entered) 
+
 func calculate_reward():
 	const basic_reward:int = 20
 	const mix_reward:int = 30
