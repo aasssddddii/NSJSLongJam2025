@@ -36,7 +36,7 @@ var save_path = "res://Saves/Highscores.tres"
 
 
 
-
+var player_in_game:bool
 
 #var shown_end_credits:bool#needs to be exported to level highscore for ease of saving
 var show_end_splash:bool
@@ -77,6 +77,9 @@ func _ready():
 	add_child(ui_sfx_generator)
 	ui_jukebox.bus = "Music"
 	ui_sfx_generator.bus = "SFX"
+	
+	ui_jukebox.volume_db = -10
+	ui_sfx_generator.volume_db = -10
 	#set proccessing mode for audio streams
 	ui_jukebox.process_mode = Node.PROCESS_MODE_ALWAYS
 	ui_sfx_generator.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -89,7 +92,18 @@ func _ready():
 	get_tree().root.add_child.call_deferred(transitioner)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
-func _input(event):
+func _input(event: InputEvent) -> void:
+	if !player_in_game:
+		if event.is_action_pressed("button_up"):
+			play_sfx(select_up)
+		if event.is_action_pressed("button_down"):
+			play_sfx(select_down)
+		if event.is_action_pressed("button_right"):
+			play_sfx(select_up)
+		if event.is_action_pressed("button_left"):
+			play_sfx(select_down)
+		
+		
 	if event.is_action_pressed("button_pause"):
 		if get_tree().paused && unpausable:
 			unpause_game()
@@ -198,6 +212,10 @@ func change_scene(from_scene,to_scene):
 			save_game()
 		get_tree().root.add_child.call_deferred(next_scene)
 		if to_scene == potion_boy_scene:
+			player_in_game = true
+			play_music(game_music)
+		if to_scene == endless_mode_prefab:
+			player_in_game = true
 			play_music(game_music)
 		if to_scene == credits_screen && show_end_splash:
 			await get_tree().create_timer(.5).timeout
@@ -293,6 +311,7 @@ var potion_accepted = "res://Audio/SFX/potion accepted.ogg"
 var splatter = "res://Audio/SFX/splatter.ogg"
 var select_up = "res://Audio/SFX/select up.ogg"
 var select_down = "res://Audio/SFX/select down.ogg"
+var start_button_sfx = "res://Audio/SFX/start_button_select.ogg"
 #music path
 var game_music = "res://Audio/potion_boy theme.ogg"
 	

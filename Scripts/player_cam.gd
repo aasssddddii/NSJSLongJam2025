@@ -4,10 +4,10 @@ var game_manager = GameManager
 
 
 
-const regular_speed = Vector2(1.2,0)
-const max_speed = Vector2(3,0)#Testing
-const acceleration = Vector2(.1,0)#Testing
-const deceleration = Vector2(.04,0)
+const regular_speed = Vector2(1.4,0)
+const max_speed = Vector2(2.0,0)#Testing
+const acceleration = Vector2(.2,0)#Testing
+const deceleration = Vector2(.1,0)
 const cam_speed = 100
 @export var testing:bool
 
@@ -95,11 +95,13 @@ func _on_button_button_down():
 	game_manager.play_sfx(game_manager.button_select)
 	if !game_manager.endless_mode:
 		game_manager.finish_level_scene(get_parent())
+		game_manager.player_in_game = false
 	else:
 		#finish endless
 		print("finishing ENDLESS")
 		game_manager.finish_endless_scene(get_parent())
 		game_manager.endless_mode = false
+		game_manager.player_in_game = false
 	
 
 

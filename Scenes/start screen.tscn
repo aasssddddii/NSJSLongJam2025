@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cg6lcsqcax324" path="res://Sprites/large window background.png" id="4_n5gu7"]
 [ext_resource type="Texture2D" uid="uid://dauxom4nqv3dv" path="res://Sprites/potion_grabber.png" id="5_35mal"]
 [ext_resource type="StyleBox" uid="uid://qtxaaa7w4ka2" path="res://misc visual assets/grabber area.tres" id="6_wopkx"]
-[ext_resource type="VideoStream" uid="uid://cmubwpix2xafm" path="res://Videos/potionboyintro video.ogv" id="7_a0rpm"]
+[ext_resource type="VideoStream" uid="uid://cr27o232sn152" path="res://Videos/potionboyintro video.ogv" id="7_a0rpm"]
 [ext_resource type="Texture2D" uid="uid://d3ffte0hkv2ls" path="res://Sprites/potion_grabber highlight.png" id="8_dqblg"]
 [ext_resource type="PackedScene" uid="uid://c4env6us4rr5" path="res://Prefabs/mission_prep.tscn" id="10_q17xo"]
 

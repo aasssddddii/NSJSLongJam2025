@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://biqf83y1ktgkg"
+path="res://.godot/imported/potion_boy theme_OLD.ogg-12a085ba7efcd3c54677d6fe7d1fcd60.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/potion_boy theme_OLD.ogg"
+dest_files=["res://.godot/imported/potion_boy theme_OLD.ogg-12a085ba7efcd3c54677d6fe7d1fcd60.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

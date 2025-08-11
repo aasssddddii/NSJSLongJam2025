@@ -2,7 +2,7 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://cn51ouf1na6nx"
+uid="uid://de6up6nmro2ml"
 path="res://.godot/imported/potion_boy theme.ogg-646e3cfbfc491f8d474e66b70caf7d7f.oggvorbisstr"
 
 [deps]
@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/potion_boy theme.ogg-646e3cfbfc491f8d474e66b7
 
 [params]
 
-loop=false
-loop_offset=0
-bpm=0
+loop=true
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4

@@ -120,5 +120,5 @@ func get_level_data(level:int):
 @export var colorblind_mode:bool
 @export var fullscreen:int
 @export var game_muted:bool
-@export var sfx_volume:int = 0#
-@export var music_volume:int = 10#
+@export var sfx_volume:int = -10#Defaults
+@export var music_volume:int = -10#Defaults

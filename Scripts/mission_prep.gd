@@ -48,9 +48,10 @@ func endless_hide():
 	ui_requirement.visible = false
 	client_label.visible = false
 	requirement_label.visible = false
+	
 
 func _on_button_button_down():
-	game_manager.play_sfx(game_manager.button_select)
+	game_manager.play_sfx(game_manager.start_button_sfx)
 	if prep_data["day"] != "Endless Mode":
 		get_parent().start_potion_boy(game_manager.game_level)
 	else:
@@ -58,9 +59,12 @@ func _on_button_button_down():
 
 
 func _on_button_2_button_down() -> void:
+	game_manager.play_sfx(game_manager.button_select)
 	if prep_data["day"] != "Endless Mode":
 		get_parent().show_level_select(true)
 	else:
+		game_manager.endless_mode = false
+		get_parent().show_start_menu()
 		get_parent().reset_focus()
 		pass # Replace with function body.
 	visible = false

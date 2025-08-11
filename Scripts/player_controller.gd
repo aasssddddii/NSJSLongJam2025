@@ -1,6 +1,7 @@
 extends CharacterBody2D
 const SPEED = 110.0
 const reverse_Speed:int = 200.0
+const drag = 20
 
 var game_manager = GameManager
 var player_in_control:bool = true
@@ -46,15 +47,15 @@ func _physics_process(delta):
 		var direction = Input.get_vector("button_down","button_up","button_left", "button_right")
 		print("direction vector:", direction)
 		if direction:
-			if velocity.x > 0:
+			if velocity.x > 0:#moving forward
 				velocity = direction * SPEED
 			else:
 				velocity = direction * reverse_Speed
 		else:
-			if velocity.x > 0:
-				velocity.x = move_toward(velocity.x, 0, SPEED)
-			else:
-				velocity.x = move_toward(velocity.x, 0, reverse_Speed)
+			#if velocity.x > 0:
+				#velocity.x = move_toward(velocity.x, 0, SPEED)
+			#else:
+			velocity.x = move_toward(velocity.x, -drag, reverse_Speed)
 			velocity.y = move_toward(velocity.y, 0, SPEED)
 		move_and_slide()
 		ui_score.text = var_to_str(game_manager.deliveries_made)

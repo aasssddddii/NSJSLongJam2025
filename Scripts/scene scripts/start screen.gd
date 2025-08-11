@@ -32,16 +32,15 @@ func _ready():
 	start_button.call_deferred("grab_focus")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+
+
 
 #MAIN MENU
 func _on_quit_button_down():
 	game_manager.play_sfx(game_manager.button_select)
 	get_tree().quit()
 func _on_start_button_down():
-	game_manager.play_sfx(game_manager.button_select)
+	game_manager.play_sfx(game_manager.start_button_sfx)
 	game_manager.change_scene(self, game_manager.level_select_screen)
 func _on_credits_button_down():
 	game_manager.play_sfx(game_manager.button_select)
@@ -51,6 +50,7 @@ func _on_options_button_down():
 	display_options()
 func _on_endless_button_down():
 	game_manager.endless_mode = true
+	hide_start_menu()
 	endless_prep.setup_prep(game_manager.prep_lib.endless_prep_data)
 	game_manager.play_sfx(game_manager.button_select)
 	#game_manager.change_scene(self, game_manager.endless_mode_prefab)
@@ -67,6 +67,13 @@ func display_options():
 			overtime_display.visible = !options_displayed
 		ui_colorblind_button.grab_focus()
 
+func hide_start_menu():
+		main_menu.visible = false
+		title_label.visible = false
+		
+func show_start_menu():
+		main_menu.visible = true
+		title_label.visible = true
 
 
 #OPTIONS MENU
